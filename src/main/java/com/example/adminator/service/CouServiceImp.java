@@ -22,7 +22,7 @@ public class CouServiceImp implements CouService{
 
     @Override
     public List<Course> getListCou() {
-        return couRepository.getListCou();
+        return couRepository.findAll();
     }
 
     @Override

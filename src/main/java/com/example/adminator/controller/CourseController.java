@@ -38,7 +38,8 @@ public class CourseController {
     }
 
     @PostMapping("/add")
-    public String addCouSubmit(@ModelAttribute Course course) {
+    public String addCouSubmit(@ModelAttribute Course course, @RequestParam("category") String categoryId ) {
+        course.setCategoryID(Integer.parseInt(categoryId));
         couService.save(course);
         return "redirect:/managercourse";
     }
