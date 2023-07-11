@@ -1,0 +1,184 @@
+-- User table
+CREATE TABLE Users (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  username VARCHAR(50) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  role VARCHAR(20) NOT NULL,
+  email VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Blog table
+CREATE TABLE Blogs (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(100) NOT NULL,
+  content TEXT,
+  created_by INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (created_by) REFERENCES Users(id)
+);
+
+-- Course table
+CREATE TABLE Courses (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(100) NOT NULL,
+  description TEXT,
+  created_by INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (created_by) REFERENCES Users(id)
+);
+
+-- Registration table
+CREATE TABLE Registrations (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  user_id INT,
+  course_id INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES Users(id),
+  FOREIGN KEY (course_id) REFERENCES Courses(id)
+);
+
+-- Lesson table
+CREATE TABLE Lessons (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  course_id INT,
+  title VARCHAR(100) NOT NULL,
+  content TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (course_id) REFERENCES Courses(id)
+);
+
+-- Quiz table
+CREATE TABLE Quizzes (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  lesson_id INT,
+  title VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (lesson_id) REFERENCES Lessons(id)
+);
+
+-- Question table
+CREATE TABLE Questions (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  quiz_id INT,
+  question_text TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (quiz_id) REFERENCES Quizzes(id)
+);
+
+-- Registration Details table
+CREATE TABLE RegistrationDetails (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  registration_id INT,
+  user_id INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (registration_id) REFERENCES Registrations(id),
+  FOREIGN KEY (user_id) REFERENCES Users(id)
+);
+
+-- Marketing tables
+CREATE TABLE Dashboard (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  data TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Posts (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(100) NOT NULL,
+  content TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Sliders (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(100) NOT NULL,
+  image_url VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Course Content tables
+CREATE TABLE Subjects (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(100) NOT NULL,
+  description TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE SubjectDimensions (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  subject_id INT,
+  dimension_name VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (subject_id) REFERENCES Subjects(id)
+);
+
+CREATE TABLE PricePackages (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  subject_id INT,
+  title VARCHAR(100) NOT NULL,
+  price DECIMAL(10,2) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (subject_id) REFERENCES Subjects(id)
+);
+
+CREATE TABLE SubjectLessons (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  subject_id INT,
+  title VARCHAR(100) NOT NULL,
+  content TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (subject_id) REFERENCES Subjects(id)
+);
+
+-- Lesson Details table
+CREATE TABLE LessonDetails (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  lesson_id INT,
+  detail_title VARCHAR(100) NOT NULL,
+  detail_content TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (lesson_id) REFERENCES SubjectLessons(id)
+);
+
+-- Test Content tables
+CREATE TABLE Questions (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  question_text TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE Quizzes (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  title VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE QuizQuestions (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  quiz_id INT,
+  question_id INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (quiz_id) REFERENCES Quizzes(id),
+  FOREIGN KEY (question_id) REFERENCES Questions(id)
+);
+
+-- Sale tables
+CREATE TABLE Sales (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  registration_id INT,
+  total_amount DECIMAL(10,2) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (registration_id) REFERENCES Registrations(id)
+);
+
+-- Admin tables
+CREATE TABLE Settings (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  setting_name VARCHAR(100) NOT NULL,
+  setting_value TEXT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- You can add additional tables as per your specific requirements
+
