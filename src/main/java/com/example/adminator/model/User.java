@@ -1,7 +1,9 @@
 package com.example.adminator.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.awt.*;
@@ -11,6 +13,8 @@ import java.io.Serializable;
 @Table(name = "user")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements Serializable {
 
     @Id

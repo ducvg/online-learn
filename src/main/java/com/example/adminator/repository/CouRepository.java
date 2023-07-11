@@ -3,10 +3,11 @@ package com.example.adminator.repository;
 import com.example.adminator.model.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@org.springframework.stereotype.Repository
+@Repository
 public interface CouRepository extends JpaRepository<Course,Integer> {
 
     @Query(value ="select course.CourseID, course.Title, course.thumbnail, categories.Name\n" +
