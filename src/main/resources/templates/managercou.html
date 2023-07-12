@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Manager Courses</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+
+</script><link rel="stylesheet" href="style/edituser.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="modal" id="servers_modal" style="display:block;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title"> Manager Courses</h4>
+      </div>
+      <div class="modal-body">
+        <div class="table-wrapper">
+          <div class="table-title">
+            <a class="box" href="/managercourse/add">Add Course</a>
+          </div>
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>Title</th>
+              <th>Thubnail</th>
+              <th>Category</th>
+              <th>Update</th>
+            </tr>
+            </thead>
+            <tbody id="servers_table" runat="server" ClientIDMode="static" data-delete="">
+            <tr th:each="course : ${courses}">
+              <td th:text="${course.title}"></td>
+              <td th:text="${course.thumbnail}"></td>
+              <td th:text="${course.categoryID}"></td>
+              <td>
+                <a th:href="@{/managercourse/edit/{id}(id=${course.courseID})}">Edit</a>
+                <a th:href="@{/managercourse/delete/{id}(id=${course.courseID})}">Delete</a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+  <script  src="./edituser.js"></script>
+</body>
+</html>

@@ -1,73 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>Edit Course</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
-<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
-
-</script><link rel="stylesheet" href="style/edituser.css">
-
 </head>
 <body>
-<!-- partial:index.partial.html -->
-<div class="modal" id="servers_modal" style="display:block;">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">×</button>
-        <h4 class="modal-title">Courses</h4>
-      </div>
-      <div class="modal-body">
-        <div class="table-wrapper">
-          <div class="table-title">
-            <button type="button" class="btn btn-primary add-new">
-                            <i class="fa fa-plus"></i> Add Course
-                        </button>
-          </div>
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th>Course ID</th>
-                <th>Course Name</th>
-                <th>Status</th>
-                <th>Assigned Experts</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody id="servers_table" runat="server" ClientIDMode="static" data-delete="">
-              <tr id="server_0">
-                <td>ABC290</td>
-                <td>The Future Of Technology</td>
-                <td>Online</td>
-                <td><select name="Experts">
-                  <option value="usa">Avada</option>
-                  <option value="canada">John Smith</option>
-                  <option value="mexico">Hiroshi</option>
-                </select></td>
-                <td class="crud"><a class="add" title="Add" data-toggle="tooltip"><i class="fa fa-check"></i></a><a class="edit" title="Edit" data-toggle="tooltip"><i class="fa fa-pencil"></i></a><a class="delete" title="Delete" data-toggle=
-                    "tooltip"><i class="fa fa-trash"></i></a></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <a href="./edituser.html">
-            <button type="button" class="btn btn-default" onclick="SaveServerList();">Save</button>
-        </a>  
-        
-        <a href="./admindashboard.html">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button></div>
-        </a>   
-    </div>
-  </div>
+<div>
+  <h1>Edit Course</h1>
+  <form th:action="@{/managercourse/update/{id}(id=${course.courseID})}" method="post">
+    <input type="hidden" th:field="${course.courseID}">
+    <label for="title">Title:</label>
+    <input type="text" id="title" th:field="${course.title}" required>
+    <br>
+    <label for="thumbnail">Thumbnail:</label>
+    <input type="text" id="thumbnail" th:field="${course.thumbnail}" required>
+    <br>
+    <label for="category">Category:</label>
+    <input type="text" id="category" th:field="${course.categoryID}" required>
+    <br>
+    <input type="submit" value="Save">
+  </form>
 </div>
-<!-- partial -->
-  <script  src="./edituser.js"></script>
 </body>
 </html>

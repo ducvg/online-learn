@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>Assigned To</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-<link rel="stylesheet" href="style/assignedcourse.css">
+<link rel="stylesheet" href="/assignedcourse.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
 
 </head>
@@ -17,6 +17,16 @@
       <th>Assigned To</th>
       <th>Course Link</th>
     </tr>
+  <tbody>
+  <th:block th:each="courseexpert : ${listCourseExpert}">
+    <tr>
+      <td>[[${courseexpert.couExpertID}]]</td>
+      <td>[[${courseexpert.courseID}]]</td>
+      <td>[[${courseexpert.userID}]]</td>
+    </tr>
+  </th:block>
+
+  </tbody>
   </thead>
   <tbody>
     <tr>

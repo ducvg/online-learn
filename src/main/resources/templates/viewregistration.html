@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>Registration</title>
-  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'><link rel="stylesheet" href="style/viewregistration.css">
+  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'><link rel="stylesheet" href="/viewregistration.css">
 
 </head>
 <body>
@@ -16,34 +16,16 @@
     <tr>
       <th scope="col">Registered Course</th>
       <th scope="col">Due Date</th>
-      <th scope="col">Amount</th>
+      <th scope="col">End Date</th>
       <th scope="col">Payment Status</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td data-label="Account">The Joy Of Learning</td>
-      <td data-label="Due Date">04/01/2023</td>
-      <td data-label="Amount">250.000 VNĐ</td>
-      <td data-label="Period">Accepted</td>
-    </tr>
-    <tr>
-      <td scope="row" data-label="Account">The Art Of Negotiation</td>
-      <td data-label="Due Date">03/01/2023</td>
-      <td data-label="Amount">250.000 VNĐ</td>
-      <td data-label="Period">In Processing</td>
-    </tr>
-    <tr>
-      <td scope="row" data-label="Account">Corporate AMEX</td>
-      <td data-label="Due Date">03/01/2023</td>
-      <td data-label="Amount">250.000 VNĐ</td>
-      <td data-label="Period">Error</td>
-    </tr>
-    <tr>
-      <td scope="row" data-label="Acount">The Science Of Happiness</td>
-      <td data-label="Due Date">02/01/2023</td>
-      <td data-label="Amount">250.000 VNĐ</td>
-      <td data-label="Period">Accepted</td>
+    <tr th:each="course:${courses}">
+      <td th:text="${course.title}"></td>
+      <td th:text="${registration.StartDate}"></td>
+      <td th:text="${registration.EndDate}"></td>
+      <td th:text="${registration.Status}"></td>
     </tr>
   </tbody>
 </table>

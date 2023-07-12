@@ -1,33 +1,25 @@
 package com.example.adminator.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.io.Serializable;
 
-
 @Entity
-@Table(name = "course")
+@Table(name = "categories")
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Course implements Serializable{
-
+public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CourseID")
-    private Integer courseID;
-
-    @Column(name = "Title")
-    private String title;
-
-    @Column(name = "thumbnail")
-    private String thumbnail;
-
     @Column(name = "CategoryID")
     private Integer categoryID;
 
-
+    @Column(name = "Name")
+    private String name;
 }

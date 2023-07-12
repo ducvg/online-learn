@@ -1,6 +1,6 @@
 <!doctype html>
 
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <!--script nav-->
@@ -16,14 +16,14 @@
     <!--Google Font-->
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="style/loginTutor.css">
+    <link rel="stylesheet" type="text/css" href="/loginTutor.css">
 
     <title>F-Learning Login</title>
 </head>
 
 <body>
   <nav id="web-navbar" class="nav-course navbar navbar-expand-lg navbar-dark fixed-top py-2">
-    <a class="navbar-brand" href="index.html"><img src="style/img/logo.png" alt=""></a>
+    <a class="navbar-brand" href="index.html"><img src="/img/logo.png" alt=""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -54,16 +54,17 @@
     <div class="kontainer">
       <div class="log-form">
         <h1>Expert's Login</h1>	
-        <div class="form">	
-          <form action="videoUpload.html">
+        <div class="form">
+            <p th:text="${error}" th:if="${error}"></p>
+            <form action="" method="POST">
             <div class="form-group">
               <label for="exampleInputEmail1">Email address</label>
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
               <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div class="form-group">
               <label for="inputPassword5">Password</label>
-              <input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
+              <input type="password" name="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
               <small id="passwordHelpBlock" class="form-text text-muted">
                 Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
               </small>
@@ -74,7 +75,7 @@
             </div>
             <a href="index.html"><button type="submit" class="btn btn-primary">Submit</button></a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="SignupExperts.html">New around here? Sign up</a>
+            <a class="dropdown-item" href="/auth/expert/expertregister">New around here? Sign up</a>
             <a class="dropdown-item" href="forgot.html">Forgot password?</a>
           </form>	
         </div>
@@ -83,7 +84,7 @@
 
     <div class="gambar">
       <div class="gambar-e">
-        <img src="style/img/logop.png" alt="Langit" class="pic log">
+        <img src="/img/logop.png" alt="Langit" class="pic log">
         <p>Become the teacher you were meant to be. With our vast library of courses, you can learn new skills, stay up-to-date on the latest educational trends, and connect with other teachers from around the world. Whether you're a new teacher or a seasoned veteran, we have something for you. So what are you waiting for? Start teaching  today!</p>
       </div>
     </div>

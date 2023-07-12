@@ -60,14 +60,5 @@ public class UserController {
         userService.delete(userService.findUser(id));
     }
 
-    @PutMapping("/ban/{id}")
-    public void banUser(@PathVariable Integer id){
-        userService.banUser(userService.findUser(id));
-    }
-
-    @PutMapping("/unban/{id}")
-    public void unbanUser(@PathVariable Integer id){
-        userService.unbanUser(userService.findUser(id));
-    }
 
 }
