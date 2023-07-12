@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>F-Learning</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css"
+    />
+    <link rel="stylesheet" href="style/useregisteredcourse.css" />
+  </head>
+  <body>
+    <!-- partial:index.partial.html -->
+    <div class="container" data-ng-app="myApp" data-ng-controller="myCtrl">
+      <div class="row">
+        <div class="search">
+          Search: <input type="text" class="search" data-ng-model="table" />
+        </div>
+        <a href="course.html"><button>All Course</button> </a>
+      </div>
+      <br />
+      <table>
+        <tr>
+          <th>Course Name</th>
+          <th>Status</th>
+          <th>Course Link</th>
+        </tr>
+        <tr data-ng-repeat="customer in people | filter: table">
+          <td>{{customer.Name}}</td>
+          <td>{{customer.City}}</td>
+          <td>{{customer.Country}}</td>
+        </tr>
+      </table>
+      <div
+        data-pagination=""
+        data-num-pages="numPages()"
+        data-current-page="currentPage"
+        data-max-size="maxSize"
+        data-boundary-links="true"
+      ></div>
+    </div>
+    <!-- partial -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.3.0.min.js"></script>
+    <script src="./useregisteredcourse.js"></script>
+  </body>
+</html>

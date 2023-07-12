@@ -1,0 +1,25 @@
+body{background:#121212;
+	height: 700px;
+}
+.score-box{
+	padding:0px;
+	margin:0px;
+	color:#fff;
+}
+.game-box{
+	color:#fff;
+	padding:15px;
+	border:1px solid #333;
+	margin-top: 350px;
+}
+.box{
+	width:130px;
+	padding:5px;
+}
+.game-date{
+	font-size:10px;
+	color:#666;
+}
+.score-opp, .score-at, .game-prog{float:right;}
+.game-prog{color:#f00000;}
+.game-opp, .game-at{width:100%;}
