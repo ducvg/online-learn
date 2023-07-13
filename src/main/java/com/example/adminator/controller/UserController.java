@@ -1,61 +1,51 @@
 package com.example.adminator.controller;
-
 import com.example.adminator.model.User;
+import com.example.adminator.repository.UserRepository;
 import com.example.adminator.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-
-@RestController
-@RequestMapping("/user")
+@Controller
+@RequestMapping("/managerUser")
 public class UserController {
     @Autowired
-    private UserService userService;
-
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getUser(@PathVariable Integer id){
-        User u = userService.findUser(id);
-        if (u == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with id: " + id);
-        }
-        return ResponseEntity.ok(u);
-    }
-
+    private UserService UserService;
+    @Autowired
+    private UserRepository UserRepository;
     @GetMapping
-    public List<User> getListCUser(){
-        return userService.getListUser();
+    public String getAllUser(Model model){
+        List<User> listUser= UserService.getListUser();
+        model.addAttribute("Users",listUser);
+        return "managerUser";
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<?> createUser(@RequestBody User user){
-        System.out.println();
-        User userCreate = userService.add(user);
-        if(userCreate != null) {
-            return ResponseEntity.ok(user);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tạo mới User không thành công!");
+    // Còn thiếu cái role set như phần reg là nó phải theo UserID rồi mới đến web edit
+
+    @PostMapping("/update/{id}")
+    public String updateUser(@PathVariable("id") Integer id, @ModelAttribute User User, Model model) {
+        User existingUser = UserService.findUser(id);
+        existingUser.setName(User.getName());
+        existingUser.setEmail(User.getEmail());
+        existingUser.setPassword(User.getPassword());
+        UserService.save(existingUser);
+        return "redirect:/editprofile";
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateUSer(@PathVariable Integer id ,@RequestBody User user){
-        User u = userService.findUser(id);
-        if (u == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with id: " + id);
-        }
-        u.setName(user.getName());
-        u.setEmail(user.getEmail());
-        u.setPassword(user.getPassword());
-        u.setRole(user.getRole());
-        u.setStatus(user.isStatus());
-
-        return ResponseEntity.ok(userService.update(u));
+    //Có thật sự là càn delete user ko ?
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") Integer id) {
+        User User = UserService.findUser(id);
+        UserService.delete(User);
+        return "redirect:/editprofile";
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void deleteUser(@PathVariable Integer id){
-        userService.delete(userService.findUser(id));
-    }
+    //    @GetMapping("/edit/{id}")
+//    public String editUser(@PathVariable("id") Integer id, Model model) {
+//        User User = UserService.findUser(id);
+//        model.addAttribute("User", User);
+//        return "editprofile";
+//    }
 
 }
