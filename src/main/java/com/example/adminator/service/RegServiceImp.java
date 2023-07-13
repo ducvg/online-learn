@@ -24,20 +24,14 @@ public class RegServiceImp implements RegService{
     public List<Registration> getListReg() {
         return RegRepository.findAll();
     }
-
-    @Override
-    public Registration add(Registration Registration) {return RegRepository.save(Registration);}
-
     @Override
     public Registration save(Registration Registration) {
         return RegRepository.save(Registration);
     }
-
     @Override
     public Registration update(Registration Registration) {
         return RegRepository.save(Registration);
     }
-
     @Override
     public void delete(Registration Registration) {
         RegRepository.delete(Registration);
