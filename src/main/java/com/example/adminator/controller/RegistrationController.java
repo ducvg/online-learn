@@ -1,14 +1,9 @@
 package com.example.adminator.controller;
 
-import com.example.adminator.model.Course;
 import com.example.adminator.model.Registration;
-import com.example.adminator.model.User;
 import com.example.adminator.repository.RegistrationRepository;
-import com.example.adminator.service.CouService;
-import com.example.adminator.service.UserService;
+import com.example.adminator.service.RegService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,18 +14,24 @@ import java.util.List;
 public class RegistrationController {
     private RegistrationRepository repo;
     @Autowired
-    private UserService userService;
+    private RegService regs;
+    //Hàm de chạy postman
+    public
+
+
+
+
+    //cái hàm dưới này đang chua bt làm nnao cho chuẩn
     @GetMapping
     public String getAll(Model model){
-        List<Registration> list= repo.findByRegistrationByUserID();
-        model.addAttribute("courses",listCou);
+        List<Registration> list= repo.findByRegistrationByUserID(UserID);
+        model.addAttribute("regs",list);
         return "viewregistration";
     }
-
     @GetMapping
     public String deletereg(@PathVariable("id") Integer id) {
-        User user = userService.findUser(id);
-        userService.delete(user);
+        Registration Registration = regs.findReg(id);
+        regs.delete(Registration);
         return "redirect:/viewregistration";
     }
 }

@@ -25,12 +25,11 @@ public class CustomerAuthController {
     public String registercustomer(@ModelAttribute("userForm") User userForm, Model model){
         userForm.setRole("customer");
         User userCreate = userService.add(userForm);
-
         return "redirect:/auth/customer/login";
     }
+
     @GetMapping("/customerlogin")
     public String logincustomerPage(Model model, String error, String logout){
-
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
         if (logout != null)

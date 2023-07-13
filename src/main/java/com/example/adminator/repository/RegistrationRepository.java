@@ -17,9 +17,12 @@ public interface RegistrationRepository extends JpaRepository<Registration, Inte
             "FROM ols.registration r\n" +
             "inner join ols.course c on c.CourseID = r.CourseID\n" +
             "inner join ols.user u ON u.UserID = r.userID\n" +
-            "WHERE u.userID = 1;",nativeQuery = true )
+            "WHERE u.userID = ?;",nativeQuery = true )
     List<Registration> findByRegistrationByUserID(@Param("userID") Integer UserID);
 
+    @Query(value ="SELECT *\n" +
+            "FROM ols.registration r",nativeQuery = true )
+    List<Registration> getListReg();
 //    @Modifying
 //    @Query("DELETE FROM Registration r WHERE r.RegistrationID = :RegistrationID")
 //    void cancelByRegistrationID(@Param("RegistrationID") Integer RegistrationID);

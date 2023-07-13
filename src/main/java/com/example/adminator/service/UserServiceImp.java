@@ -1,9 +1,7 @@
 package com.example.adminator.service;
 
 import com.example.adminator.model.User;
-import com.example.adminator.repository.CouRepository;
 import com.example.adminator.repository.UserRepository;
-import org.hibernate.sql.results.internal.domain.CircularFetchImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,19 +41,4 @@ public class UserServiceImp implements UserService{
         userRepo.delete(user);
     }
 
-    @Override
-    public void banUser(User user) {
-        if (user.isStatus()==true){
-            user.setStatus(false);
-        }
-        userRepo.save(user);
-    }
-
-    @Override
-    public void unbanUser(User user) {
-        if (user.isStatus()==false){
-            user.setStatus(true);
-        }
-        userRepo.save(user);
-    }
 }
