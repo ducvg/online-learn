@@ -22,6 +22,10 @@ public class UserServiceImp implements UserService{
         if (u.isPresent()) return u.get();
         else return null;
     }
+    @Override
+    public List<User> getAllExpert() {
+        return userRepo.getAllExpert();
+    }
 
     @Override
     public List<User> getListUser() {

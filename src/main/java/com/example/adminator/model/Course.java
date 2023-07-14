@@ -23,11 +23,19 @@ public class Course implements Serializable{
     @Column(name = "Title")
     private String title;
 
+    @Column(name = "Description")
+    private String description;
+
     @Column(name = "thumbnail")
     private String thumbnail;
 
     @Column(name = "CategoryID")
     private Integer categoryID;
 
-
+    public Course(String title, String description, String thumbnail, Integer categoryID) {
+        this.title = title;
+        this.description = description;
+        this.thumbnail = thumbnail;
+        this.categoryID = categoryID;
+    }
 }

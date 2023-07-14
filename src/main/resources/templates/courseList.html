@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Course</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  .modal{
+    overflow: auto;
+  }
+    .crud {
+  width:100px;
+  vertical-align: middle !important;
+}
+.crud a {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 5px;
+  min-width: 24px;
+  font-size:1.5em;
+}
+.add-new {
+  float:right;
+  margin-bottom: 5px;
+}
+#servers_modal table.table td .add {
+display: inline-block;
+}
+#servers_modal table.table .form-control.error {
+  border-color: #f50000;
+}
+.modal-lg{width: 1234px;}
+.table-wrapper {
+    max-height: 90vh; /* Adjust this value as needed */
+    height: auto;
+    overflow-y: auto;
+  }
+  </style>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="modal" id="servers_modal" style="display:block;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">Courses</h4>
+      </div>
+      <div class="modal-body">
+        <div class="table-wrapper">
+          <div class="table-title">
+            <button type="button" onclick="window.location.href='add';" class="btn btn-primary add-new">
+              <i class="fa fa-plus"></i> Add Course
+            </button>
+          </div>
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>Course ID</th>
+              <th>Course Title</th>
+              <th>Thumbnail</th>
+              <th>Description</th>
+              <th>Experts Assigned</th>
+              <th>Category</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody id="servers_table" runat="server" ClientIDMode="static" data-delete="">
+            <tr th:each="c : ${courses}">
+                <td>[[${c.CourseID}]]</td>
+                <td>[[${c.Title}]]</td>
+                <td>[[${c.Thumbnail}]]</td>
+                <td>[[${c.Description}]]</td>
+                <td>[[${c.toString()}]]</td>
+                <td>[[${c.Category}]]</td>
+                <td class="crud">
+                  <a th:href="@{'update/'+${c.CourseID}}"><i class="fa fa-pencil"></i></a>
+                  <a th:href="@{'delete/'+${c.CourseID}}"><i class="fa fa-trash"></i></a>
+                </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="./admindashboard.html">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </a>
+      </div>
+      </a>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+</body>
+</html>

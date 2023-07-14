@@ -1,5 +1,6 @@
 package com.example.adminator.service;
 
+import com.example.adminator.Join.CourseUserCategoryJoin;
 import com.example.adminator.model.Course;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,9 @@ import java.util.Objects;
 public interface CouService {
     Course findCou(Integer id);
 
-    public List<Course> getListCou();
+    public List<Object[]> getListCou();
+    public List<String> findCouExpertByCouID(int id);
+    public int addCourse(Course course);
 
     public Course save(Course course);
     public Course update(Course course);
