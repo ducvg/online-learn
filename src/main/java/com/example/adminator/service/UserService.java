@@ -7,6 +7,8 @@ import java.util.List;
 
 @Service
 public interface UserService {
+    public List<User> getAllExpert();
+
     public User findUser(Integer id);
 
     public List<User> getListUser();
@@ -19,7 +21,7 @@ public interface UserService {
 
     public void banUser(User user);
 
-    public void unbanUser(User user);
+    public void unbanUser(User user);;
 
 
 }

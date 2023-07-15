@@ -21,9 +21,18 @@ public class CouServiceImp implements CouService{
     }
 
     @Override
-    public List<Course> getListCou() {
-        return couRepository.findAll();
+    public int addCourse(Course course){
+        couRepository.save(course);
+        return couRepository.getInsertedCourseID();
     }
+
+    @Override
+    public List<Object[]> getListCou() {
+        return couRepository.getListCou();
+    }
+
+    @Override
+    public List<String> findCouExpertByCouID(int id) {return  couRepository.findCouExpertByCouID(id);}
 
     @Override
     public Course save(Course course) {
