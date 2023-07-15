@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Registration implements Serializable{
+public class    Registration implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,4 +34,13 @@ public class Registration implements Serializable{
 
     @Column(name = "Status")
     private Integer status;
+
+    public Registration(Integer registrationID, Integer courseID, String userID, String registrationDate, String endDate, Integer status) {
+        this.registrationID = registrationID;
+        this.courseID = courseID;
+        this.userID = userID;
+        this.registrationDate = registrationDate;
+        this.endDate = endDate;
+        this.status = status;
+    }
 }

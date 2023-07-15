@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface UserService {
     public User findUser(Integer id);
-    public List<User> getListUser();
+    public List<User> getAllCustomer();
     public User save(User user);
     public User add(User user);
     public User update(User user);

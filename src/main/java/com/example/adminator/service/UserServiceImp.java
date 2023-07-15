@@ -22,7 +22,7 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
-    public List<User> getListUser() {
+    public List<User> getAllCustomer() {
         return userRepo.findAll();
     }
     @Override

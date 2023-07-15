@@ -1,5 +1,6 @@
 package com.example.adminator.service;
 
+import com.example.adminator.model.Course;
 import com.example.adminator.model.Registration;
 import com.example.adminator.repository.RegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,15 @@ public class RegServiceImp implements RegService{
     @Override
     public void delete(Registration Registration) {
         RegRepository.delete(Registration);
+    }
+    @Override
+    public List<Registration> getRegByUserID(int id){
+        return RegRepository.getRegByUserID(id);
+    }
+    public void ClearRegistrationByUserID(int id){
+        List<Registration> rlist = getRegByUserID(id);
+        for(Registration r : rlist){
+            delete(r);
+        }
     }
 }

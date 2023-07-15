@@ -24,6 +24,10 @@ public interface RegistrationRepository extends JpaRepository<Registration, Inte
     @Query(value ="SELECT *\n" +
             "FROM ols.registration r",nativeQuery = true )
     List<Registration> getListReg();
+
+    @Query(value = "SELECT * FROM registration where UserID = :id ", nativeQuery = true)
+    List<Registration> getRegByUserID(int id);
+
 //    @Modifying
 //    @Query("DELETE FROM Registration r WHERE r.RegistrationID = :RegistrationID")
 //    void cancelByRegistrationID(@Param("RegistrationID") Integer RegistrationID);

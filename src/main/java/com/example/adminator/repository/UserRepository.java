@@ -10,7 +10,6 @@ import java.util.List;
 
 @Repository
  public interface UserRepository extends JpaRepository<User,Integer > {
-    @Query(value ="SELECT *\n" +
-                  "FROM ols.user u",nativeQuery = true )
-    List<Course> getListUser();
+    @Query(value ="select * from user where role = 'Customer'",nativeQuery = true )
+    List<User> getAllCustomer();
 }

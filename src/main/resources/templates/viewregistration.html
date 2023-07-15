@@ -2,34 +2,131 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
-  <title>Registration</title>
-  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'><link rel="stylesheet" href="/viewregistration.css">
-
+  <title>Edit Course</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  .modal{
+    overflow: auto;
+  }
+    .crud {
+  width:100px;
+  vertical-align: middle !important;
+}
+.crud a {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 5px;
+  min-width: 24px;
+  font-size:1.5em;
+}
+.add-new {
+  float:right;
+  margin-bottom: 5px;
+}
+#servers_modal table.table td .add {
+display: inline-block;
+}
+#servers_modal table.table .form-control.error {
+  border-color: #f50000;
+}
+.modal-lg{width: 1234px;}
+.table-wrapper {
+    max-height: 90vh; /* Adjust this value as needed */
+    height: auto;
+    overflow-y: auto;
+  }
+  </style>
 </head>
 <body>
-  <div>Name: John</div>
-  <div>Payment method: Card</div>
 <!-- partial:index.partial.html -->
-<table>
-  <caption>Your Registration</caption>
-  <thead>
-    <tr>
-      <th scope="col">Registered Course</th>
-      <th scope="col">Due Date</th>
-      <th scope="col">End Date</th>
-      <th scope="col">Payment Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr th:each="course:${courses}">
-      <td th:text="${course.title}"></td>
-      <td th:text="${registration.StartDate}"></td>
-      <td th:text="${registration.EndDate}"></td>
-      <td th:text="${registration.Status}"></td>
-    </tr>
-  </tbody>
-</table>
+<div class="modal" id="servers_modal" style="display:block;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title">Courses</h4>
+      </div>
+      <div class="modal-body">
+        <div class="table-wrapper">
+          <div class="table-title">
+            <button type="button" onclick="window.location.href='add';" class="btn btn-primary add-new">
+              <i class="fa fa-plus"></i> Add Course
+            </button>
+          </div>
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>RegistrationID</th>
+              <th>CourseID</th>
+              <th>UserID</th>
+              <th>RegistrationDate</th>
+              <th>EndDate</th>
+            </tr>
+            </thead>
+            <tbody id="servers_table" runat="server" ClientIDMode="static" data-delete="">
+            <tr th:each="c : ${registrations}">
+              <td>[[${c.RegistrationID}]]</td>
+              <td>[[${c.CourseID}]]</td>
+              <td>[[${c.UserID}]]</td>
+              <td>[[${c.RegistrationDate}]]</td>
+              <td>[[${c.EndDate}]]</td>
+              <td class="crud">
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="./admindashboard.html">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </a>
+      </div>
+      </a>
+    </div>
+  </div>
+</div>
 <!-- partial -->
-  
 </body>
 </html>
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--  <meta charset="UTF-8">-->
+<!--  <title>Registration</title>-->
+<!--  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'><link rel="stylesheet" href="/viewregistration.css">-->
+
+<!--</head>-->
+<!--<body>-->
+<!--  <div>Name: John</div>-->
+<!--  <div>Payment method: Card</div>-->
+<!--&lt;!&ndash; partial:index.partial.html &ndash;&gt;-->
+<!--<table>-->
+<!--  <caption>Your Registration</caption>-->
+<!--  <thead>-->
+<!--    <tr>-->
+<!--      <th scope="col">Registered Course</th>-->
+<!--      <th scope="col">Due Date</th>-->
+<!--      <th scope="col">End Date</th>-->
+<!--      <th scope="col">Payment Status</th>-->
+<!--    </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--    <tr th:each="course:${courses}">-->
+<!--      <td th:text="${course.title}"></td>-->
+<!--      <td th:text="${registration.StartDate}"></td>-->
+<!--      <td th:text="${registration.EndDate}"></td>-->
+<!--      <td th:text="${registration.Status}"></td>-->
+<!--    </tr>-->
+<!--  </tbody>-->
+<!--</table>-->
+<!--&lt;!&ndash; partial &ndash;&gt;-->
+<!--  -->
+<!--</body>-->
+<!--</html>-->
