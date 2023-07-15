@@ -26,7 +26,10 @@ public class UserServiceImp implements UserService{
     public List<User> getAllExpert() {
         return userRepo.getAllExpert();
     }
-
+    @Override
+    public List<User> getAllCustomer() {
+        return userRepo.findAll();
+    }
     @Override
     public List<User> getListUser() {
         return userRepo.findAll();

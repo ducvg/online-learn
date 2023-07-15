@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface UserService {
     public List<User> getAllExpert();
-
+    public List<User> getAllCustomer();
     public User findUser(Integer id);
 
     public List<User> getListUser();
