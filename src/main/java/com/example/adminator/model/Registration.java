@@ -1,100 +1,37 @@
 package com.example.adminator.model;
 
 import jakarta.persistence.*;
+import lombok.*;
+
+import java.io.Serializable;
+
 
 @Entity
-@Table(name = "registration")
-public class Registration {
+@Table(name = "course")
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class Registration implements Serializable{
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer RegistrationID;
-    private int CourseID;
-    private int UserID;
-    private String RegistrationDate;
-    private String StartDate;
-    private String EndDate;
-    private String Status;
+    @Column(name = "RegistrationID")
+    private Integer registrationID;
 
-    public Registration(Integer registrationID, int courseID, int userID, String registrationDate, String startDate, String endDate, String status) {
-        RegistrationID = registrationID;
-        CourseID = courseID;
-        UserID = userID;
-        RegistrationDate = registrationDate;
-        StartDate = startDate;
-        EndDate = endDate;
-        Status = status;
-    }
+    @Column(name = "CourseID")
+    private Integer courseID;
 
-    public Registration() {
+    @Column(name = "UserID")
+    private String userID;
 
-    }
+    @Column(name = "RegistrationDate")
+    private String registrationDate;
 
-    public Integer getRegistrationID() {
-        return RegistrationID;
-    }
+    @Column(name = "EndDate")
+    private String endDate;
 
-    public void setRegistrationID(Integer registrationID) {
-        RegistrationID = registrationID;
-    }
-
-    public int getCourseID() {
-        return CourseID;
-    }
-
-    public void setCourseID(int courseID) {
-        CourseID = courseID;
-    }
-
-    public int getUserID() {
-        return UserID;
-    }
-
-    public void setUserID(int userID) {
-        UserID = userID;
-    }
-
-    public String getRegistrationDate() {
-        return RegistrationDate;
-    }
-
-    public void setRegistrationDate(String registrationDate) {
-        RegistrationDate = registrationDate;
-    }
-
-    public String getStartDate() {
-        return StartDate;
-    }
-
-    public void setStartDate(String startDate) {
-        StartDate = startDate;
-    }
-
-    public String getEndDate() {
-        return EndDate;
-    }
-
-    public void setEndDate(String endDate) {
-        EndDate = endDate;
-    }
-
-    public String getStatus() {
-        return Status;
-    }
-
-    public void setStatus(String status) {
-        Status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "Registration{" +
-                "RegistrationID=" + RegistrationID +
-                ", CourseID=" + CourseID +
-                ", UserID=" + UserID +
-                ", RegistrationDate='" + RegistrationDate + '\'' +
-                ", StartDate='" + StartDate + '\'' +
-                ", EndDate='" + EndDate + '\'' +
-                ", Status='" + Status + '\'' +
-                '}';
-    }
+    @Column(name = "Status")
+    private Integer status;
 }

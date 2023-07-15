@@ -48,7 +48,6 @@ public class RegistrationController {
         existingRegistration.setCourseID(Registration.getCourseID());
         existingRegistration.setUserID(Registration.getUserID());
         existingRegistration.setRegistrationDate(Registration.getRegistrationDate());
-        existingRegistration.setStartDate(Registration.getStartDate());
         existingRegistration.setEndDate(Registration.getEndDate());
         //Status co can thiet ko ?
         existingRegistration.setStatus(Registration.getStatus());

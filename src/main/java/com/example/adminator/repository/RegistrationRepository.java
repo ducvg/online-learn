@@ -13,7 +13,8 @@ import java.util.List;
 
 @Repository
 public interface RegistrationRepository extends JpaRepository<Registration, Integer> {
-    @Query(value = "SELECT c.Title, r.StartDate,r.EndDate,r.Status\n" +
+    //Cai query de dan customer theo userID den screen
+    @Query(value = "SELECT c.Title, r.RegistrationDate,r.EndDate,r.Status\n" +
             "FROM ols.registration r\n" +
             "inner join ols.course c on c.CourseID = r.CourseID\n" +
             "inner join ols.user u ON u.UserID = r.userID\n" +
