@@ -25,4 +25,6 @@ public interface CourseExpertRepository extends JpaRepository<CourseExpert,Integ
 
     @Query(value = "SELECT * FROM courseexpert where CourseID = :id ", nativeQuery = true)
     List<CourseExpert> getExpertByCourse(int id);
+
+
 }
