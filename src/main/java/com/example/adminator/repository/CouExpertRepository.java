@@ -17,5 +17,5 @@ public interface CouExpertRepository extends JpaRepository<CourseExpert,Integer>
 //            " JOIN course c ON c.CourseID = ce.CourseID" +
 //            " JOIN user u ON u.UserID = ce.UserID", nativeQuery = true)
 //    List<CourseExpert> getListCourseExpert();
-//    phần này đéo hiểu sao bị lỗi
+//    phần này không hiểu sao bị lỗi
 }
