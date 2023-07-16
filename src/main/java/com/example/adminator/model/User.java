@@ -36,4 +36,12 @@ public class User implements Serializable {
 
     @Column(name = "Status")
     private boolean status;
+
+    public User(String name, String email, String password, String role, boolean status) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.status = status;
+    }
 }

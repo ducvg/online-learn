@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+  .modal{
+    overflow: auto;
+  }
+    .crud {
+  width:100px;
+  vertical-align: middle !important;
+}
+.crud a {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 5px;
+  min-width: 24px;
+  font-size:1.5em;
+}
+.add-new {
+  float:right;
+  margin-bottom: 5px;
+}
+#servers_modal table.table td .add {
+display: inline-block;
+}
+#servers_modal table.table .form-control.error {
+  border-color: #f50000;
+}
+.modal-lg{width: 1234px;}
+.table-wrapper {
+    max-height: 90vh; /* Adjust this value as needed */
+    height: auto;
+    overflow-y: auto;
+  }
+
+    </style>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="modal" id="servers_modal" style="display:block;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Users</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-wrapper">
+                    <div class="table-title">
+                        <button type="button" onclick="window.location.href='add';" class="btn btn-primary add-new">
+                            <i class="fa fa-plus"></i> Add User
+                        </button>
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="servers_table" runat="server" ClientIDMode="static" data-delete="">
+                        <tr th:each="user : ${users}">
+                            <td>[[${user.name}]]</td>
+                            <td>[[${user.email}]]</td>
+                            <td class="pw">[[${user.password}]]<input type="hidden" value="password" name="password">
+                            </td>
+                            <td>[[${user.role}]]</td>
+                            <td>
+                                <div class="status">
+                                    <input type="radio" th:name="'status_' + ${user.userID}" th:value="true" th:checked="${user.status}" id="'status_true_' + ${user.userID}" onclick="confirmBan('${user.userID}', true)" />
+                                    <label th:for="'status_true_' + ${user.userID}">Not Ban</label>
+
+                                    <input type="radio" th:name="'status_' + ${user.userID}" th:value="false" th:checked="${!user.status}" id="'status_false_' + ${user.userID}" onclick="confirmBan('${user.userID}', false)" />
+                                    <label th:for="'status_false_' + ${user.userID}" style="color: red;">Ban</label>
+                                </div>
+                            </td>
+                            <td class="crud">
+                                <a th:href="@{'update/'+${user.userID}}"><i class="fa fa-pencil"></i></a>
+                                <a th:href="@{'delete/'+${user.userID}}"><i class="fa fa-trash"></i></a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="./admindashboard.html">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </a>
+            </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+function confirmBan(userID, status) {
+userID = parseInt(userID); // Chuyển đổi thành số nguyên
+  var confirmationMessage = status ? "Do you want to UnBan user?" : "Do you want to Ban user?";
+  if (confirm(confirmationMessage)) {
+    // Gửi yêu cầu Ajax để cập nhật trạng thái
+    $.ajax({
+      type: 'POST',
+      url: '/user/changeStatus',
+      data: { userID: userID, status: status },
+      success: function(data) {
+        // Xử lý kết quả trả về từ server (nếu cần)
+        // Cập nhật lại giao diện sau khi xử lý
+        // Ví dụ: làm mới trang
+        location.reload();
+      },
+      error: function() {
+        // Xử lý lỗi (nếu có)
+      }
+    });
+  }
+}
+</script>
+<!-- partial -->
+</body>
+</html>

@@ -1,6 +1,8 @@
 package com.example.adminator.controller;
 
+import com.example.adminator.model.Category;
 import com.example.adminator.model.Course;
+import com.example.adminator.model.CourseExpert;
 import com.example.adminator.model.User;
 import com.example.adminator.repository.UserRepository;
 import com.example.adminator.service.UserService;
@@ -21,49 +23,65 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping
+    @GetMapping("/list")
     public String getAllCou(Model model){
         List<User> list= userService.getListUser();
-
         model.addAttribute("users",list);
-        return "edituser";
+        return "userList";
     }
 
     @GetMapping("/add")
-    public String addCouForm(Model model) {
-        model.addAttribute("user", new Course());
-        return "addcourse";
+    public String addUserForm(Model model) {
+        List<String> roles = userService.listRole();
+        model.addAttribute("roles",roles);
+        return "adduser";
     }
 
-//    @PostMapping("/add")
-//    public String addCouSubmit(@ModelAttribute User user, @RequestParam("category") String categoryId ) {
-//        user.setCategoryID(Integer.parseInt(categoryId));
-//        userService.save(course);
-//        return "redirect:/managercourse";
-//    }
-//
-//
-//    @GetMapping("/edit/{id}")
-//    public String editCouForm(@PathVariable("id") Integer id, Model model) {
-//        User user = userService.findCou(id);
-//        model.addAttribute("user", course);
-//        return "editcourse";
-//    }
-//
-//    @PostMapping("/update/{id}")
-//    public String updateCou(@PathVariable("id") Integer id, @ModelAttribute User user, Model model) {
-//        Course existingCou = userService.findCou(id);
-//        existingCou.setTitle(user.getTitle());
-//        existingCou.setThumbnail(user.getThumbnail());
-//        existingCou.setCategoryID(user.getCategoryID());
-//        userService.save(existingCou);
-//        return "redirect:/managercourse";
-//    }
-//
-//    @GetMapping("/delete/{id}")
-//    public String deleteCou(@PathVariable("id") Integer id) {
-//        User user = userService.findCou(id);
-//        userService.delete(course);
-//        return "redirect:/managercourse";
-//    }
+    @PostMapping("/add")
+    public String addCouSubmit(@RequestParam("username") String name, @RequestParam("email") String email,
+                               @RequestParam("password") String password, @RequestParam("selectedRole") String selectedRole,
+                               @RequestParam("status") boolean status) {
+        User newUser = new User(name,email,password,selectedRole,status);
+        userService.add(newUser);
+        return "redirect:/user/list";
+    }
+
+    @GetMapping("/update/{id}")
+    public String editUserForm(@PathVariable("id") Integer id, Model model) {
+        User user = userService.findUser(id);
+        List<String> roles = userService.listRole();
+        model.addAttribute("roles",roles);
+        model.addAttribute("user", user);
+        return "edituser";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateUser(@PathVariable("id") Integer id,@RequestParam("username") String name, @RequestParam("email") String email,
+                            @RequestParam("password") String password, @RequestParam("selectedRole") String selectedRole,
+                            @RequestParam("status") boolean status) {
+        User existingUser = userService.findUser(id);
+
+        existingUser.setName(name);
+        existingUser.setEmail(email);
+        existingUser.setPassword(password);
+        existingUser.setRole(selectedRole);
+        existingUser.setStatus(status);
+        userService.update(existingUser);
+        return "redirect:/user/list";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") Integer id) {
+        User user = userService.findUser(id);
+        userService.delete(user);
+        return "redirect:/user/list";
+    }
+
+    @PostMapping("/changeStatus")
+    @ResponseBody
+    public String changeStatus(@RequestParam("userID") int userID, @RequestParam("status") boolean status){
+        User newUser = userService.changeStatus(userID,status);
+        userService.update(newUser);
+        return "redirect:/user/list";
+    }
 }
