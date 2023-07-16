@@ -11,4 +11,7 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User,Integer > {
     @Query(value ="select * from user where role = 'Expert'",nativeQuery = true )
     List<User> getAllExpert();
+
+    @Query(value ="select * from user where role = 'Customer'",nativeQuery = true )
+    List<User> getAllCustomer();
 }
