@@ -25,8 +25,8 @@ public interface UserRepository extends JpaRepository<User,Integer > {
 
     @Transactional
     @Modifying
-    @Query("UPDATE user\n" +
-            "SET `Status` = :status\n" +
-            "WHERE `UserID` = :userID")
-    User changeStatus(@Param("userID") int userID, @Param("status") boolean status);
+    @Query("UPDATE User u SET u.status = :status WHERE u.userID = :userID")
+    void updateUserStatus( @Param("status") boolean status, @Param("userID") int userID);
+
+
 }

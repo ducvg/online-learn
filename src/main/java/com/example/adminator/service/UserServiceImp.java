@@ -52,8 +52,6 @@ public class UserServiceImp implements UserService{
         userRepo.delete(user);
     }
 
-    @Override
-    public User changeStatus(Integer id,Boolean status) {
-        return userRepo.changeStatus(id,status);
-    }
+
+
 }

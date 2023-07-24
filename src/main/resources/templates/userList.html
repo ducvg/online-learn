@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
@@ -40,6 +41,13 @@ display: inline-block;
     height: auto;
     overflow-y: auto;
   }
+.box {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #000;
+    margin-left: 5px;
+}
 
     </style>
 </head>
@@ -79,16 +87,39 @@ display: inline-block;
                             <td>[[${user.role}]]</td>
                             <td>
                                 <div class="status">
-                                    <input type="radio" th:name="'status_' + ${user.userID}" th:value="true" th:checked="${user.status}" id="'status_true_' + ${user.userID}" onclick="confirmBan('${user.userID}', true)" />
-                                    <label th:for="'status_true_' + ${user.userID}">Not Ban</label>
-
-                                    <input type="radio" th:name="'status_' + ${user.userID}" th:value="false" th:checked="${!user.status}" id="'status_false_' + ${user.userID}" onclick="confirmBan('${user.userID}', false)" />
-                                    <label th:for="'status_false_' + ${user.userID}" style="color: red;">Ban</label>
+                                    <label th:for="'status_true_' + ${user.userID}">
+                                      <span th:if="${user.status}">
+                                        <i class="fas fa-check-circle" style="color: green;"></i> <!-- Icon tích màu xanh -->
+                                      </span><span th:unless="${user.status}">
+                                        <i class="fas fa-times-circle" style="color: red;"></i> <!-- Icon dấu x màu đỏ -->
+                                      </span>
+                                    </label>
                                 </div>
                             </td>
                             <td class="crud">
-                                <a th:href="@{'update/'+${user.userID}}"><i class="fa fa-pencil"></i></a>
-                                <a th:href="@{'delete/'+${user.userID}}"><i class="fa fa-trash"></i></a>
+                                <div style="display: flex; align-items: center;">
+                                    <a th:href="@{'update/' + ${user.userID}}" style="margin-right: 10px;"><i class="fas fa-edit"></i></a>
+                                    <a th:href="@{'delete/' + ${user.userID}}" style="margin-right: 10px;"><i class="fas fa-trash-alt"></i></a>
+                                    <form th:action="@{'ban'}" method="post">
+                                        <!-- Trường ẩn để chứa user.userID -->
+                                        <input type="hidden" th:name="userID" th:value="${user.userID}" />
+
+                                        <!-- Kiểm tra giá trị user.status để hiển thị nút Ban hoặc UnBan -->
+                                        <th:block th:if="${user.status}">
+                                            <!-- Trường ẩn để chứa user.status -->
+                                            <input type="hidden" th:name="status" th:value="false"  />
+                                            <!-- Nút (button) Ban -->
+                                            <button type="submit" style="background-color: red; color: white;">Ban</button>
+                                        </th:block>
+                                        <th:block th:unless="${user.status}">
+                                            <!-- Trường ẩn để chứa user.status -->
+                                            <input type="hidden" th:name="status" th:value="true"  />
+                                            <!-- Nút (button) UnBan -->
+                                            <button type="submit" style="background-color: green; color: white;">UnBan</button>
+                                        </th:block>
+                                    </form>
+                                </div>
+
                             </td>
                         </tr>
                         </tbody>
@@ -106,25 +137,24 @@ display: inline-block;
 </div>
 
 <script>
-function confirmBan(userID, status) {
-userID = parseInt(userID); // Chuyển đổi thành số nguyên
-  var confirmationMessage = status ? "Do you want to UnBan user?" : "Do you want to Ban user?";
-  if (confirm(confirmationMessage)) {
-    // Gửi yêu cầu Ajax để cập nhật trạng thái
-    $.ajax({
-      type: 'POST',
-      url: '/user/changeStatus',
-      data: { userID: userID, status: status },
-      success: function(data) {
-        // Xử lý kết quả trả về từ server (nếu cần)
-        // Cập nhật lại giao diện sau khi xử lý
-        // Ví dụ: làm mới trang
-        location.reload();
-      },
-      error: function() {
-        // Xử lý lỗi (nếu có)
-      }
-    });
+    function confirmBan(userID, status) {
+  var message = status ? "Bạn có muốn Unban user không?" : "Bạn có muốn Ban user không?";
+  if (confirm(message)) {
+    var radios = document.getElementsByName("status_" + userID);
+    for (var i = 0; i < radios.length; i++) {
+      radios[i].checked = radios[i].value === String(status);
+    }
+
+    var url = "/user/ban/" + userID;
+    var data = {
+      userID: userID,
+      status: status
+    };
+
+    // Gửi yêu cầu AJAX hoặc thực hiện các hành động khác tại đây
+
+    console.log("userID: ", userID);
+    console.log("status: ", status);
   }
 }
 </script>

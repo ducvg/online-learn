@@ -21,8 +21,4 @@ public interface UserService {
 
     public void delete(User user);
 
-    public User changeStatus(Integer id ,Boolean status);
-
-
-
 }

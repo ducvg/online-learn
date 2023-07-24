@@ -1,5 +1,6 @@
 package com.example.adminator.controller;
 
+import com.example.adminator.join.ChangeStatusRequest;
 import com.example.adminator.model.Category;
 import com.example.adminator.model.Course;
 import com.example.adminator.model.CourseExpert;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -77,11 +79,12 @@ public class UserController {
         return "redirect:/user/list";
     }
 
-    @PostMapping("/changeStatus")
-    @ResponseBody
-    public String changeStatus(@RequestParam("userID") int userID, @RequestParam("status") boolean status){
-        User newUser = userService.changeStatus(userID,status);
+    @PostMapping("/ban")
+    public String changeStatus(@RequestParam("userID") Integer userID,@RequestParam("status") boolean status) {
+        User newUser = userService.findUser(userID);
+        newUser.setStatus(status);
         userService.update(newUser);
         return "redirect:/user/list";
     }
+
 }
