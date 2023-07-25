@@ -1,7 +1,7 @@
 package com.example.adminator.service;
-import com.example.adminator.model.Course;
 import com.example.adminator.model.CourseExpert;
-import com.example.adminator.model.User;
+import com.example.adminator.repository.CourseExpertRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

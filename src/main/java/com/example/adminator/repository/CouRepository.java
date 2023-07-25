@@ -1,9 +1,7 @@
 package com.example.adminator.repository;
 
-import com.example.adminator.Join.CourseUserCategoryJoin;
 import com.example.adminator.model.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -44,5 +42,6 @@ public interface CouRepository extends JpaRepository<Course,Integer> {
             "ORDER BY\n" +
             "  c.CourseID ASC;",nativeQuery = true )
     List<Object[]> getListCou();
+
 
 }

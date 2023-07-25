@@ -1,15 +1,19 @@
 package com.example.adminator.controller;
 
-import com.example.adminator.Join.CourseUserCategoryJoin;
+import com.example.adminator.join.CourseUserCategoryJoin;
 import com.example.adminator.model.Category;
 import com.example.adminator.model.Course;
 import com.example.adminator.model.CourseExpert;
 import com.example.adminator.model.User;
+import com.example.adminator.repository.CategoryRepository;
+import com.example.adminator.repository.CouRepository;
 import com.example.adminator.service.CategoryService;
 import com.example.adminator.service.CouService;
 import com.example.adminator.service.ExpertService;
 import com.example.adminator.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +37,7 @@ public class CourseController {
     public String getAllCou(Model model) {
         List<Object[]> listCou = couService.getListCou();
         List<CourseUserCategoryJoin> list = new ArrayList<>();
-        List<String> experts;
+        List<String> experts = new ArrayList<>();
         String[] expert;
         for (Object[] row : listCou) {
             experts = couService.findCouExpertByCouID((int) row[0]);
@@ -58,7 +62,8 @@ public class CourseController {
 
     @PostMapping("/add")
     public String addCouSubmit(@RequestParam("Title") String title, @RequestParam("Thumbnail") String thumbnail,
-                               @RequestParam("Description") String desc, @RequestParam(value = "expert", required = false) int[] expID, @RequestParam("category") int cateID) {
+                               @RequestParam("Description") String desc, @RequestParam(value = "expert") int[] expID, @RequestParam("category") int cateID) {
+//        System.out.println("hehhhhho: "+expID[0]+"..."+expID[1]+", "+cateID);
         Course newCourse = new Course(title, desc, thumbnail, cateID);
         int courseid = couService.addCourse(newCourse);
         for (int id : expID) {
@@ -101,7 +106,6 @@ public class CourseController {
     @GetMapping("/delete/{id}")
     public String deleteCou(@PathVariable("id") Integer id) {
         Course course = couService.findCou(id);
-        expertService.ClearCourseExpertByCourseID(id);
         couService.delete(course);
         return "redirect:/course/list";
     }

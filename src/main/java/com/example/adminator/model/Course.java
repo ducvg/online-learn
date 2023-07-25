@@ -38,4 +38,5 @@ public class Course implements Serializable{
         this.thumbnail = thumbnail;
         this.categoryID = categoryID;
     }
+
 }

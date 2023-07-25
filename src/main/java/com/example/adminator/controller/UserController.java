@@ -1,73 +1,90 @@
 package com.example.adminator.controller;
 
+import com.example.adminator.join.ChangeStatusRequest;
+import com.example.adminator.model.Category;
 import com.example.adminator.model.Course;
+import com.example.adminator.model.CourseExpert;
 import com.example.adminator.model.User;
+import com.example.adminator.repository.UserRepository;
 import com.example.adminator.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<?> getUser(@PathVariable Integer id){
-        User u = userService.findUser(id);
-        if (u == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with id: " + id);
-        }
-        return ResponseEntity.ok(u);
+    @GetMapping("/list")
+    public String getAllCou(Model model){
+        List<User> list= userService.getListUser();
+        model.addAttribute("users",list);
+        return "userList";
     }
 
-    @GetMapping
-    public List<User> getListCUser(){
-        return userService.getListUser();
+    @GetMapping("/add")
+    public String addUserForm(Model model) {
+        List<String> roles = userService.listRole();
+        model.addAttribute("roles",roles);
+        return "adduser";
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<?> createUser(@RequestBody User user){
-        System.out.println();
-        User userCreate = userService.add(user);
-        if(userCreate != null) {
-            return ResponseEntity.ok(user);
-        }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Tạo mới User không thành công!");
+    @PostMapping("/add")
+    public String addCouSubmit(@RequestParam("username") String name, @RequestParam("email") String email,
+                               @RequestParam("password") String password, @RequestParam("selectedRole") String selectedRole,
+                               @RequestParam("status") boolean status) {
+        User newUser = new User(name,email,password,selectedRole,status);
+        userService.add(newUser);
+        return "redirect:/user/list";
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateUSer(@PathVariable Integer id ,@RequestBody User user){
-        User u = userService.findUser(id);
-        if (u == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with id: " + id);
-        }
-        u.setName(user.getName());
-        u.setEmail(user.getEmail());
-        u.setPassword(user.getPassword());
-        u.setRole(user.getRole());
-        u.setStatus(user.isStatus());
-
-        return ResponseEntity.ok(userService.update(u));
+    @GetMapping("/update/{id}")
+    public String editUserForm(@PathVariable("id") Integer id, Model model) {
+        User user = userService.findUser(id);
+        List<String> roles = userService.listRole();
+        model.addAttribute("roles",roles);
+        model.addAttribute("user", user);
+        return "edituser";
     }
 
-    @DeleteMapping("/delete/{id}")
-    public void deleteUser(@PathVariable Integer id){
-        userService.delete(userService.findUser(id));
+    @PostMapping("/update/{id}")
+    public String updateUser(@PathVariable("id") Integer id,@RequestParam("username") String name, @RequestParam("email") String email,
+                            @RequestParam("password") String password, @RequestParam("selectedRole") String selectedRole,
+                            @RequestParam("status") boolean status) {
+        User existingUser = userService.findUser(id);
+
+        existingUser.setName(name);
+        existingUser.setEmail(email);
+        existingUser.setPassword(password);
+        existingUser.setRole(selectedRole);
+        existingUser.setStatus(status);
+        userService.update(existingUser);
+        return "redirect:/user/list";
     }
 
-    @PutMapping("/ban/{id}")
-    public void banUser(@PathVariable Integer id){
-        userService.banUser(userService.findUser(id));
+    @GetMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") Integer id) {
+        User user = userService.findUser(id);
+        userService.delete(user);
+        return "redirect:/user/list";
     }
 
-    @PutMapping("/unban/{id}")
-    public void unbanUser(@PathVariable Integer id){
-        userService.unbanUser(userService.findUser(id));
+    @PostMapping("/ban")
+    public String changeStatus(@RequestParam("userID") Integer userID,@RequestParam("status") boolean status) {
+        User newUser = userService.findUser(userID);
+        newUser.setStatus(status);
+        userService.update(newUser);
+        return "redirect:/user/list";
     }
 
 }

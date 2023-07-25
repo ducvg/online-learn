@@ -19,5 +19,4 @@ public interface CouService {
     public Course update(Course course);
     public void delete(Course course);
 
-
 }

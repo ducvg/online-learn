@@ -26,13 +26,15 @@ public class UserServiceImp implements UserService{
     public List<User> getAllExpert() {
         return userRepo.getAllExpert();
     }
-    @Override
-    public List<User> getAllCustomer() {
-        return userRepo.findAll();
-    }
+
     @Override
     public List<User> getListUser() {
-        return userRepo.findAll();
+        return userRepo.getListUser();
+    }
+
+    @Override
+    public List<String> listRole() {
+        return userRepo.roleOfUser();
     }
 
     @Override
@@ -50,19 +52,6 @@ public class UserServiceImp implements UserService{
         userRepo.delete(user);
     }
 
-    @Override
-    public void banUser(User user) {
-        if (user.isStatus()==true){
-            user.setStatus(false);
-        }
-        userRepo.save(user);
-    }
 
-    @Override
-    public void unbanUser(User user) {
-        if (user.isStatus()==false){
-            user.setStatus(true);
-        }
-        userRepo.save(user);
-    }
+
 }

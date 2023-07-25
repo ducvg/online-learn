@@ -11,5 +11,4 @@ import java.util.List;
 public interface CategoryRepository extends JpaRepository<Category,Integer> {
     @Query(value ="Select * from Categories",nativeQuery = true )
     List<Category> getCategories();
-
 }

@@ -16,5 +16,4 @@ public class LessonController {
     @Autowired
     private LessonService lessonService;
 
-
 }
