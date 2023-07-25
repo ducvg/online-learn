@@ -45,26 +45,26 @@ public class RegistrationController {
 //    }
 
 
-    @GetMapping("/update/{id}")
-    public String editReg(@PathVariable("id") Integer id, Model model) {
-        List<User> customerList = userService.getAllCustomer();
-        model.addAttribute("customers", customerList);
-        Course course = couService.findCou(id);
-        List<Registration> regList = RegService.getRegByUserID(id);
-        model.addAttribute("reglist", regList);
-        model.addAttribute("course", course);
-        return "viewregistration";
-    }
-
-    @PostMapping("/update/{id}")
-    public String updateReg(@PathVariable("id") Integer id, @RequestParam("CourseID") int courseID, @RequestParam("UserID") int userID,
-                            @RequestParam("RegistrationDate") String regdate,@RequestParam("EndDate") String enddate, Model model) {
-        Registration existingReg = RegService.findReg(id);
-        existingReg.setCourseID(courseID);
-        existingReg.setUserID(userID);
-        existingReg.setRegistrationDate(regdate);
-        existingReg.setEndDate(enddate);
-        RegService.save(existingReg);
-        return "redirect:/viewregistration";
-    }
+//    @GetMapping("/update/{id}")
+//    public String editReg(@PathVariable("id") Integer id, Model model) {
+//        List<User> customerList = userService.getAllCustomer();
+//        model.addAttribute("customers", customerList);
+//        Course course = couService.findCou(id);
+//        List<Registration> regList = RegService.getRegByUserID(id);
+//        model.addAttribute("reglist", regList);
+//        model.addAttribute("course", course);
+//        return "viewregistration";
+//    }
+//
+//    @PostMapping("/update/{id}")
+//    public String updateReg(@PathVariable("id") Integer id, @RequestParam("CourseID") int courseID, @RequestParam("UserID") int userID,
+//                            @RequestParam("RegistrationDate") String regdate,@RequestParam("EndDate") String enddate, Model model) {
+//        Registration existingReg = RegService.findReg(id);
+//        existingReg.setCourseID(courseID);
+//        existingReg.setUserID(userID);
+//        existingReg.setRegistrationDate(regdate);
+//        existingReg.setEndDate(enddate);
+//        RegService.save(existingReg);
+//        return "redirect:/viewregistration";
+//    }
 }

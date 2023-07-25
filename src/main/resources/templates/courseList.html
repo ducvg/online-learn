@@ -80,7 +80,7 @@ display: inline-block;
                 <td>[[${c.Category}]]</td>
                 <td class="crud">
                   <a th:href="@{'update/'+${c.CourseID}}"><i class="fa fa-pencil"></i></a>
-                  <a th:href="@{'delete/'+${c.CourseID}}"><i class="fa fa-trash"></i></a>
+                  <a th:onclick="|showDeleteConfirmation('${c.CourseID}')|"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
             </tbody>
@@ -97,5 +97,14 @@ display: inline-block;
   </div>
 </div>
 <!-- partial -->
+<script>
+        function showDeleteConfirmation(id) {
+            var result = window.confirm("Are you sure you want to delete?");
+            if (result) {
+                 window.location.href ="delete/"+id;
+                console.log("Item deleted.");
+            }
+        }
+    </script>
 </body>
 </html>

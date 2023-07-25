@@ -1,6 +1,6 @@
 package com.example.adminator.controller;
 
-import com.example.adminator.join.ChangeStatusRequest;
+import com.example.adminator.Join.ChangeStatusRequest;
 import com.example.adminator.model.Category;
 import com.example.adminator.model.Course;
 import com.example.adminator.model.CourseExpert;
