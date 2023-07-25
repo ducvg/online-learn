@@ -41,6 +41,7 @@ public class RegServiceImp implements RegService{
     public List<Registration> getRegByUserID(int id){
         return RegRepository.getRegByUserID(id);
     }
+
     public void ClearRegistrationByUserID(int id){
         List<Registration> rlist = getRegByUserID(id);
         for(Registration r : rlist){

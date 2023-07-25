@@ -2,7 +2,6 @@ package com.example.adminator.repository;
 
 import com.example.adminator.model.Course;
 import com.example.adminator.model.Registration;
-import com.example.adminator.model.Test;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
