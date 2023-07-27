@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/course")
+@RequestMapping("/admin/course")
 public class CourseController {
     @Autowired
     private CouService couService;
@@ -35,11 +35,7 @@ public class CourseController {
     private UserService userService;
 
     @GetMapping("/list")
-    public String getAllCou(Model model, HttpSession session) {
-        if(session.getAttribute("role") != "Admin"){
-            return "";
-        }
-
+    public String getAllCou(Model model) {
         List<Object[]> listCou = couService.getListCou();
         List<CourseUserCategoryJoin> list = new ArrayList<>();
         List<String> experts = new ArrayList<>();
@@ -76,7 +72,7 @@ public class CourseController {
                 expertService.save(new CourseExpert(courseid, id));
             }
         }
-        return "redirect:/course/list";
+        return "redirect:/admin/course/list";
     }
 
     @GetMapping("/update/{id}")
@@ -107,14 +103,14 @@ public class CourseController {
 
         existingCou.setCategoryID(cateID);
         couService.save(existingCou);
-        return "redirect:/course/list";
+        return "redirect:/admin/course/list";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteCou(@PathVariable("id") Integer id) {
         Course course = couService.findCou(id);
         couService.delete(course);
-        return "redirect:/course/list";
+        return "redirect:/admin/course/list";
     }
 
 }

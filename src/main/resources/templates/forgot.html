@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<title></title>
 	<!--script nav-->
@@ -26,12 +26,16 @@
 				</label>
 		    </a>
 			<h4>Reset Password</h4>
-			<div class="form-group">
-				<label for="exampleInputEmail1">Email address</label>
-				<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email/No.Telp">
-				<small id="emailHelp" class="form-text text-muted" >Masukan Email/No.Telp yang akan dikirimkan kode</small>
-			</div>
-			<a href="alert.html"><button type="submit" class="btn btn-primary">Lanjut</button></a>
+			<h3 th:text="${mailErr}"></h3>
+			<form action="alert" method="post">
+				<div class="form-group">
+					<label for="exampleInputEmail1">Email address</label>
+					<input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="johndoe@gmail.com">
+					<small id="emailHelp" class="form-text text-muted" >A new generated password will be sent to your email !</small>
+				</div>
+				<button type="submit" class="btn btn-primary">Continue</button>
+				<a href="signin"><button type="button" class="btn btn-primary">Back</button></a>
+			</form>
 		</div>
 		<!--Proses mengirim Gmail belum-->
 	</main>

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("admin/user")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -45,7 +45,7 @@ public class UserController {
                                @RequestParam("status") boolean status) {
         User newUser = new User(name,email,password,selectedRole,status);
         userService.add(newUser);
-        return "redirect:/user/list";
+        return "redirect:/admin/user/list";
     }
 
     @GetMapping("/update/{id}")
@@ -69,14 +69,14 @@ public class UserController {
         existingUser.setRole(selectedRole);
         existingUser.setStatus(status);
         userService.update(existingUser);
-        return "redirect:/user/list";
+        return "redirect:/admin/user/list";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id) {
         User user = userService.findUser(id);
         userService.delete(user);
-        return "redirect:/user/list";
+        return "redirect:/admin/user/list";
     }
 
     @PostMapping("/ban")
@@ -84,7 +84,7 @@ public class UserController {
         User newUser = userService.findUser(userID);
         newUser.setStatus(status);
         userService.update(newUser);
-        return "redirect:/user/list";
+        return "redirect:/admin/user/list";
     }
 
 }

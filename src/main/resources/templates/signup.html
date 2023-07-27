@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <title>F-Learning-SignUp</title>
@@ -23,7 +23,7 @@
 
 <body>
     <nav id="web-navbar" class="nav-course navbar navbar-expand-lg navbar-dark fixed-top py-2">
-        <a class="navbar-brand" href="index.html"><img src="style/img/logo.png" alt=""></a>
+        <a class="navbar-brand" href="/"><img src="style/img/logo.png" alt=""></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -32,19 +32,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">Home</a>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="course.html">Course</a>
+                    <a class="nav-link" href="/course">Course</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="about.html">About</a>
+                    <a class="nav-link" href="/About">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="contact.html">Contact</a>
+                    <a class="nav-link" href="/contact">Contact</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link" href="/login.html">Login</a>
+                    <a class="nav-link" href="">Register</a>
                 </li>
             </ul>
         </div>
@@ -52,42 +52,34 @@
     <main>
         <div class="form">
             <h1>Sign Up</h1>
-            <form>
+            <form action="/register" method="post">
                 <div class="form-group">
-                    <label for="inputAddress">Username</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="Username">
-                </div>
+                    <label for="inputAddress">Your name</label>
+                    <input name="name" required="" type="text" class="form-control" id="inputAddress" placeholder="Thomas Shelby" pattern="^[a-zA-Z]+( [a-zA-Z]+)*$" title="Please enter letters (upper or lower case)"></div>
                 <div class="form-group">
                     <label for="inputEmail4">Email</label>
-                    <input type="email" class="form-control" id="inputEmail4" placeholder="nanana12@gmail.com">
+                    <input name="email" required type="email" class="form-control" id="inputEmail4" placeholder="nanana12@gmail.com">
+                    <p th:text="${mailErr}"></p>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="inputPassword4">Password</label>
-                        <input type="password" class="form-control" id="inputPassword4">
+                        <label for="inputPassword5">Password</label>
+                        <input name="password" minlength="8" required type="password" class="form-control" id="inputPassword5">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="inputPassword4">Confirm Password</label>
-                        <input type="password" class="form-control" id="inputPassword4">
+                        <label for="inputPassword6">Confirm Password</label>
+                        <input name="repass" type="password" class="form-control" id="inputPassword6" required>
+                    </div>
+                    <p class="col-md-12" th:text="${passErr}"></p>
+                    <div class="form-group col-md-6">
+                        <label><input name="Role" type="radio" checked value="Customer"> Student</label>
+                    </div><div class="form-group col-md-6">
+                        <label><input name="Role" type="radio" value="Expert"> Teacher</label>
                     </div>
 
                 </div>
-
-
-                <div class="form-group">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="gridCheck">
-                        <label class="form-check-label" for="gridCheck">
-                            Check me out
-                        </label>
-                    </div>
-                </div>
-                <a href="index.html">
-                    <button type="submit" class="btn btn-primary" href="login.html">Sign Up</button>
-                    
-                </a>
-                <a class="dropdown-item" href="SignupExperts.html">Want to be an Experts? Sign up here.</a>
-                <a class="dropdown-item" href="login.html">Already have an account?</a>
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                <a class="dropdown-item" href="/signin">Already have an account?</a>
             </form>
         </div>
     </main>

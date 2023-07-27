@@ -1,7 +1,7 @@
 body{
 	height: 100%;
 	width: 100%;
-	background-image: url(img/Learn.jpg);
+	background-image: url(/style/img/Learn.jpg);
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -42,7 +42,7 @@ nav button.navbar-toggler:active {
 	background-color: transparent;
 	max-width: 100%;
 	min-height: 100%;
-	
+
 }
 
 label{
@@ -53,7 +53,7 @@ label{
 
 	background-size: cover;
 	background-position: center;
-	
+
 }
 .he{
 	height: 90px;
@@ -104,7 +104,7 @@ form{
 	font-weight: bold !important;
 }
 .dropdown-item:hover{
-	background-color: #e8e8e8 !important; 
+	background-color: #e8e8e8 !important;
 	font-weight: normal !important;
 	border-radius: 20px;
 	width: 40vh !important;
@@ -131,8 +131,8 @@ form{
     display: flex;
     justify-content: center;
     flex-direction: column;
-  
-   
+
+
 }
 
 

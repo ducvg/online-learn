@@ -5,6 +5,8 @@ import com.example.adminator.repository.CouRepository;
 import com.example.adminator.repository.UserRepository;
 import org.hibernate.sql.results.internal.domain.CircularFetchImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,12 +18,21 @@ public class UserServiceImp implements UserService{
     @Autowired
     private UserRepository userRepo;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
     @Override
     public User findUser(Integer id) {
         Optional<User> u = userRepo.findById(id);
         if (u.isPresent()) return u.get();
         else return null;
     }
+
+    @Override
+    public User findEmail(String email) {
+        return userRepo.findEmail(email);
+    }
+
     @Override
     public List<User> getAllExpert() {
         return userRepo.getAllExpert();
@@ -39,7 +50,15 @@ public class UserServiceImp implements UserService{
 
     @Override
     public User add(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole("ROLE_"+user.getRole());
         return userRepo.save(user);
+    }
+
+    @Override
+    public User changePassword(User u){
+        u.setPassword(passwordEncoder.encode(u.getPassword()));
+        return userRepo.save(u);
     }
 
     @Override
@@ -51,7 +70,5 @@ public class UserServiceImp implements UserService{
     public void delete(User user) {
         userRepo.delete(user);
     }
-
-
 
 }

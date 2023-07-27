@@ -23,6 +23,9 @@ public interface UserRepository extends JpaRepository<User,Integer > {
     @Query(value = "SELECT distinct u.Role From ols.user u",nativeQuery = true)
     List<String> roleOfUser();
 
+    @Query(value = "Select * from user where email = :email ", nativeQuery = true)
+    User findEmail(@Param("email") String email);
+
     @Transactional
     @Modifying
     @Query("UPDATE User u SET u.status = :status WHERE u.userID = :userID")

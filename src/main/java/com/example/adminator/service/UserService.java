@@ -10,6 +10,7 @@ public interface UserService {
     public List<User> getAllExpert();
 
     public User findUser(Integer id);
+    public User findEmail(String email);
 
     public List<User> getListUser();
 
@@ -18,7 +19,8 @@ public interface UserService {
     public User add(User user);
 
     public User update(User user);
-
+    public User changePassword(User user);
     public void delete(User user);
+
 
 }

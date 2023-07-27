@@ -32,7 +32,6 @@ public class ExpertAuthController {
     }
     @GetMapping("/expertlogin")
     public String loginExpertPage(Model model, String error, String logout){
-
         if (error != null)
             model.addAttribute("error", "Your username and password is invalid.");
         if (logout != null)
@@ -40,18 +39,19 @@ public class ExpertAuthController {
         return "expertlogin";
     }
 
-    @PostMapping("/expertlogin")
-    public String loginExpert(@RequestParam("email") String email, @RequestParam("password") String password, HttpServletRequest request, Model model){
-        if (email.equals("admin@gmail.com") && password.equals("password")) {
-            // Đăng nhập thành công
-            HttpSession session = request.getSession();
-            session.setAttribute("username", email);
-            return "redirect:/auth/expert/expertregister";
-        } else {
-            // Đăng nhập thất bại
-            model.addAttribute("error", "Tên đăng nhập hoặc mật khẩu không đúng");
-            return "expertlogin";
-        }
-    }
+//    @PostMapping("/expertlogin")
+//    public String loginExpert(@RequestParam("email") String email, @RequestParam("password") String password, HttpServletRequest request){
+//        User u = userService.findEmail(email);
+//        if(u != null || u.getPassword().equals(password)){
+//            HttpSession session = request.getSession();
+//            System.out.println("YOYOYOYOYOYOYYYOYO*****"+u.getName());
+//            session.setAttribute("user", u);
+//            return "expertdashboard";
+//        } else {
+//            // Đăng nhập thất bại
+//            model.addAttribute("error", "Tên đăng nhập hoặc mật khẩu không đúng");
+//            return "expertlogin";
+//        }
+//    }
 
 }
