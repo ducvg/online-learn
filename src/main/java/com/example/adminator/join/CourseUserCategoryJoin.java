@@ -1,10 +1,9 @@
-package com.example.adminator.join;
+package com.example.adminator.Join;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Getter@Setter
 public class CourseUserCategoryJoin {
     private int CourseID;
     private String Title;
