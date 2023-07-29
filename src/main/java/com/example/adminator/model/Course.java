@@ -1,10 +1,7 @@
 package com.example.adminator.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 
@@ -13,7 +10,9 @@ import java.io.Serializable;
 @Table(name = "course")
 @Getter
 @Setter
-
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Course implements Serializable{
 
     @Id
@@ -24,9 +23,20 @@ public class Course implements Serializable{
     @Column(name = "Title")
     private String title;
 
+    @Column(name = "Description")
+    private String description;
+
     @Column(name = "thumbnail")
     private String thumbnail;
 
     @Column(name = "CategoryID")
     private Integer categoryID;
+
+    public Course(String title, String description, String thumbnail, Integer categoryID) {
+        this.title = title;
+        this.description = description;
+        this.thumbnail = thumbnail;
+        this.categoryID = categoryID;
+    }
+
 }

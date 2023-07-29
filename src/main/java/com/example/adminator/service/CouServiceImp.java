@@ -1,7 +1,9 @@
 package com.example.adminator.service;
 
 import com.example.adminator.model.Course;
+import com.example.adminator.model.CourseExpert;
 import com.example.adminator.repository.CouRepository;
+import com.example.adminator.repository.CourseExpertRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import java.util.Optional;
 public class CouServiceImp implements CouService{
     @Autowired
     private CouRepository couRepository;
+    @Autowired private CourseExpertRepository courseExpertRepository;
 
     @Override
     public Course findCou(Integer id) {
@@ -21,9 +24,18 @@ public class CouServiceImp implements CouService{
     }
 
     @Override
-    public List<Course> getListCou() {
+    public int addCourse(Course course){
+        couRepository.save(course);
+        return couRepository.getInsertedCourseID();
+    }
+
+    @Override
+    public List<Object[]> getListCou() {
         return couRepository.getListCou();
     }
+
+    @Override
+    public List<String> findCouExpertByCouID(int id) {return  couRepository.findCouExpertByCouID(id);}
 
     @Override
     public Course save(Course course) {
@@ -37,6 +49,10 @@ public class CouServiceImp implements CouService{
 
     @Override
     public void delete(Course course) {
+        List<CourseExpert> experts = courseExpertRepository.getExpertByCourse(course.getCourseID());
+        for(CourseExpert ce : experts){
+            courseExpertRepository.delete(ce);
+        }
         couRepository.delete(course);
     }
 }

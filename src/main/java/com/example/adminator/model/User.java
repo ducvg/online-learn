@@ -1,17 +1,18 @@
 package com.example.adminator.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.awt.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "user")
 @Getter
 @Setter
-public class User implements Serializable {
+@AllArgsConstructor
+@NoArgsConstructor
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,4 +33,12 @@ public class User implements Serializable {
 
     @Column(name = "Status")
     private boolean status;
+
+    public User(String name, String email, String password, String role, boolean status) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+        this.status = status;
+    }
 }

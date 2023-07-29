@@ -4,13 +4,11 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.io.Serializable;
-
 @Entity
 @Table(name = "courseexpert")
 @Getter
 @Setter
-public class CourseExpert implements Serializable {
+public class CourseExpert{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +20,12 @@ public class CourseExpert implements Serializable {
 
     @Column(name = "UserID")
     private int userID;
+
+    public CourseExpert(int courseID, int userID) {
+        this.courseID = courseID;
+        this.userID = userID;
+    }
+
+    public CourseExpert() {
+    }
 }
