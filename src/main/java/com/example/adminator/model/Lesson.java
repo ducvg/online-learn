@@ -31,4 +31,14 @@ public class Lesson implements Serializable {
 
     @Column(name = "resource")
     private String resource;
+    public Lesson(int courseID, String title, String content, String video, String resource) {
+        this.courseID = courseID;
+        this.title = title;
+        this.content = content;
+        this.video = video;
+        this.resource = resource;
+    }
+    public Lesson() {
+
+    }
 }

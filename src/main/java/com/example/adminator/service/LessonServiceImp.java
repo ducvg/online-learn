@@ -1,5 +1,6 @@
 package com.example.adminator.service;
 import com.example.adminator.model.Lesson;
+import com.example.adminator.repository.CouRepository;
 import com.example.adminator.repository.LessonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,8 @@ import java.util.Optional;
 public class LessonServiceImp implements LessonService{
     @Autowired
     private LessonRepository lessonRepository;
+    @Autowired
+    private CouRepository couRepository;
 
     @Override
     public Lesson findLesson(Integer id) {
@@ -18,11 +21,20 @@ public class LessonServiceImp implements LessonService{
         if(c.isPresent()) return c.get();
         else return null;
     }
+    @Override
+    public int addLesson(Lesson lesson){
+        lessonRepository.save(lesson);
+        return lessonRepository.getInsertedLessonID();
+    }
+    @Override
+    public List<Object[]> getListLesson() {
+        return lessonRepository.getListLesson();
+    }
 
     @Override
-    public List<Lesson> getListLesson() {
-        return lessonRepository.findAll();
-    }
+    public List<String> findCourseByCourseID(int id) {return lessonRepository.findCourseByCourseID(id);}
+
+
 
     @Override
     public Lesson save(Lesson course) {

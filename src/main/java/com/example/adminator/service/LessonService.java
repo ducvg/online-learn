@@ -7,7 +7,12 @@ import java.util.List;
 public interface LessonService {
     Lesson findLesson(Integer id);
 
-    public List<Lesson> getListLesson();
+    public List<Object[]> getListLesson();
+
+
+    List<String> findCourseByCourseID(int id);
+
+    public int addLesson(Lesson lesson);
 
     public Lesson save(Lesson lesson);
     public Lesson update(Lesson lesson);

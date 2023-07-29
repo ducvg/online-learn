@@ -13,6 +13,7 @@ public interface CouService {
     public List<String> findCouExpertByCouID(int id);
     public int addCourse(Course course);
 
+    public  List<Integer> getAllCourseID();
     public Course save(Course course);
     public Course update(Course course);
     public void delete(Course course);

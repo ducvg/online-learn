@@ -19,6 +19,8 @@ public interface CouRepository extends JpaRepository<Course,Integer> {
             " on course.CategoryID = categories.CategoryID\n" +
             " where course.CourseID = :id",nativeQuery = true )
     Course findCouByID(int id);
+    @Query(value ="SELECT distinct c.CourseID From ols.course c",nativeQuery = true )
+    List<Integer> getAllCourseID();
 
     @Query(value ="SELECT\n" +
             "  u.Name\n" +
