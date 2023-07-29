@@ -54,7 +54,7 @@ display: inline-block;
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">×</button>
-          <h4 class="modal-title">Edit Lessons</h4>
+          <h4 class="modal-title">Edit Lesson</h4>
         </div>
         <div class="modal-body">
           <div class="table-wrapper">
@@ -71,15 +71,16 @@ display: inline-block;
               <tbody id="servers_table" runat="server" ClientIDMode="static" data-delete="">
               <tr id="server_0">
                 <td>
-                  <select name="courseid" id="courseidSelect">
-                    <option th:each="u : ${lessons}" th:value="${u.courseID}">[[${u.name}]]</option>
+                  <select name="selectedCourseID" class="form-control">
+                    <!-- Sử dụng vòng lặp để duyệt qua từng giá trị trong danh sách -->
+                    <option th:each="courseId : ${courses}" th:value="${courseId}"
+                            th:text="${courseId}" th:selected="${courseId == lesson.CourseID}"></option>
                   </select>
                 </td>
-
-                <td><input style="width: 142px" type="text" name="Title" placeholder="Title"></td>
-                <td><input style="width: 142px" type="text" name="Content" placeholder="Title"></td>
-                <td><input style="width: 142px" type="text" name="Video" placeholder="Link"></td>
-                <td><input style="width: 142px" type="text" name="Resource" placeholder="Title"></td>
+                <td><input class="form-control" type="text" name="Title" placeholder="Text" th:value="${lesson.Title}"></td>
+                <td><input class="form-control" type="text" name="Content" placeholder="Text" th:value="${lesson.Content}"></td>
+                <td><input class="form-control" type="text" name="Video" placeholder="Link" th:value="${lesson.Video}"></td>
+                <td><input class="form-control" type="text" name="Resource" placeholder="Text" th:value="${lesson.Resource}"></td>
               </tr>
               </tbody>
             </table>

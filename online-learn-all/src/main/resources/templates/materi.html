@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<title>F-Learning</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<!--BS-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		  integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/index.html">
+	<link rel="stylesheet" type="text/css" href="Materi.css">
+	<link rel="stylesheet" type="text/css" href="skin/bs/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="skin/bs/css/bootstrap.bundle.min.js">
+
+	<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<nav id="web-navbar" class="navbar navbar-expand-lg navbar-dark fixed-top py-2">
+	<a class="navbar-brand" href="C:\Users\asus\Downloads\F-Learning-Website-master\index.html"><img src="../../../style/img/logo.png" alt=""></a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="C:\Users\asus\Downloads\F-Learning-Website-master\index.html">Home</a>
+			</li>
+			<li class="nav-item active">
+				<a class="nav-link" href="C:\Users\asus\Downloads\F-Learning-Website-master\course.html">Course</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="C:\Users\asus\Downloads\F-Learning-Website-master\about.html">About</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="C:\Users\asus\Downloads\F-Learning-Website-master\contact.html">Contact</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="C:\Users\asus\Downloads\F-Learning-Website-master\login.html">Login</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="C:\Users\asus\Downloads\F-Learning-Website-master\test.html">Test</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="C:\Users\asus\Downloads\F-Learning-Website-master\testresult.html">View Result</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+
+
+<div class="besar">
+		<div id="demo" class="carousel slide" data-ride="carousel">
+
+			<!-- Indicators -->
+			<ul class="carousel-indicators">
+				<li data-target="#demo" data-slide-to="0" class="active"></li>
+				<li data-target="#demo" data-slide-to="1"></li>
+				<li data-target="#demo" data-slide-to="2"></li>
+			</ul>
+
+			<!-- The slideshow -->
+			<div th:each="r : ${random}">
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<a class="banner-card" href="#">
+							<div th:class="'banner' + ${r.lessonID}" th:id="'random' + ${r.lessonID}">
+								<div class="overlay">
+									<div class="banner-content">
+										<span>[[${r.Title}]]</span>
+										<p class="spanx">
+											A Course by F-Learning
+										</p>
+									</div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<!-- Left and right controls -->
+			<a class="carousel-control-prev" href="#demo" data-slide="prev">
+				<span class="carousel-control-prev-icon"></span>
+			</a>
+			<a class="carousel-control-next" href="#demo" data-slide="next">
+				<span class="carousel-control-next-icon"></span>
+			</a>
+		</div>
+	</div>
+
+
+	<div class="container2">
+		<div class="searching">
+			<form>
+				<div class="carikan">
+
+					<input class="cari" type="text" name="cari" placeholder="Search Course" required>
+					<input class="tombol" type="button" name="search" value="Search">
+				</div>
+			</form>
+		</div>
+
+		<h1 class="course-title">Lessons</h1>
+
+		<div class="flex-cont">
+			<div class="flex-container1">
+				<div class="d-flex scroll flex-column bd-highlight mb-4">
+					<div th:each="l : ${lessons}" class="p-2 kimia1 grid1 bd-highlight" >
+						<div class="" th:id="'lesson' + ${l.lessonID}">
+						<div class="img">
+							<img src="/img/header.jpg" class="img-cou">
+						</div>
+						<a href="video/deskrip.html" style="text-decoration: none;">[[${l.Title}]]</a>
+							<div class="grid panjang">
+								<p>[[${l.content}]]</p>
+							</div>
+						</div>
+					</div>
+					<!---->
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<script src="/course.js"></script>
+
+</body>
+
+</html>

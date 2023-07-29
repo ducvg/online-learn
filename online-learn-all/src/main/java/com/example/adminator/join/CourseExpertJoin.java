@@ -1,4 +1,4 @@
-package com.example.adminator.Join;
+package com.example.adminator.join;
 
 import lombok.Getter;
 import lombok.Setter;

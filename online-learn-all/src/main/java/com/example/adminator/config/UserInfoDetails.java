@@ -5,12 +5,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserInfoDetails implements UserDetails {
+public class UserInfoDetails implements UserDetails{
 
     private User user;
 
@@ -54,4 +55,5 @@ public class UserInfoDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }

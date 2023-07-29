@@ -1,6 +1,6 @@
 package com.example.adminator.service;
 
-import com.example.adminator.Join.CourseUserCategoryJoin;
+import com.example.adminator.join.CourseUserCategoryJoin;
 import com.example.adminator.model.Course;
 import com.example.adminator.model.CourseExpert;
 import com.example.adminator.repository.CouRepository;
@@ -23,7 +23,10 @@ public class CouServiceImp implements CouService{
         if(c.isPresent()) return c.get();
         else return null;
     }
-
+    @Override
+    public List<Integer> getAllCourseID() {
+        return couRepository.getAllCourseID();
+    }
     @Override
     public int addCourse(Course course){
         couRepository.save(course);

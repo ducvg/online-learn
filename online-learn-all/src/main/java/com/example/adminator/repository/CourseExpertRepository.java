@@ -21,7 +21,13 @@ public interface CourseExpertRepository extends JpaRepository<CourseExpert,Integ
             "JOIN course c ON c.CourseID = ce.CourseID " +
             "JOIN user u ON u.UserID = ce.UserID", nativeQuery = true)
     List<Object[]> getListExpert();
-//    phần này đéo hiểu sao bị lỗi
+
+    @Query(value = "SELECT c.CourseID, c.Title, c.Description FROM course c\n" +
+            "JOIN courseexpert ce ON c.CourseID = ce.CourseID \n" +
+            "JOIN user u ON u.UserID = ce.UserID\n" +
+            "where u.UserID =:id", nativeQuery = true)
+    List<Object[]> getCourseExpertbyUserID(int id);
+
 
     @Query(value = "SELECT * FROM courseexpert where CourseID = :id ", nativeQuery = true)
     List<CourseExpert> getExpertByCourse(int id);

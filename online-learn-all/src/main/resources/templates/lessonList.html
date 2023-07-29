@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
-  <title>Edit Course</title>
+  <title>Lesson List</title>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
   <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -49,62 +49,53 @@ display: inline-block;
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">×</button>
-        <h4 class="modal-title">Courses</h4>
+        <h4 class="modal-title">Lesson</h4>
       </div>
       <div class="modal-body">
         <div class="table-wrapper">
           <div class="table-title">
             <button type="button" onclick="window.location.href='add';" class="btn btn-primary add-new">
-              <i class="fa fa-plus"></i> Add Course
+              <i class="fa fa-plus"></i> Add Lesson
             </button>
           </div>
           <table class="table table-bordered">
             <thead>
             <tr>
+              <th>Lesson ID</th>
               <th>Course ID</th>
-              <th>Course Title</th>
-              <th>Thumbnail</th>
-              <th>Description</th>
-              <th>Experts Assigned</th>
-              <th>Category</th>
+              <th>Lesson Title</th>
+              <th>Content</th>
+              <th>Video</th>
+              <th>Resource</th>
               <th>Action</th>
             </tr>
             </thead>
             <tbody id="servers_table" runat="server" ClientIDMode="static" data-delete="">
-            <tr th:each="c : ${courses}">
-                <td>[[${c.CourseID}]]</td>
-                <td>[[${c.Title}]]</td>
-                <td>[[${c.Thumbnail}]]</td>
-                <td>[[${c.Description}]]</td>
-                <td>[[${c.toString()}]]</td>
-                <td>[[${c.Category}]]</td>
-                <td class="crud">
-                  <a th:href="@{'update/'+${c.CourseID}}"><i class="fa fa-pencil"></i></a>
-                  <a th:onclick="|showDeleteConfirmation('${c.CourseID}')|"><i class="fa fa-trash"></i></a>
-                </td>
+            <tr th:each="l : ${lessons}" >
+              <td>[[${l.LessonID}]]</td>
+              <td>[[${l.CourseID}]]</td>
+              <td>[[${l.Title}]]</td>
+              <td>[[${l.Content}]]</td>
+              <td>[[${l.Video}]]</td>
+              <td>[[${l.Resource}]]</td>
+              <td class="crud">
+                <a th:href="@{'update/'+${l.LessonID}}"><i class="fa fa-pencil"></i></a>
+                <a th:href="@{'/lesson/delete/' + ${l.LessonID} + '?courseid=' + ${l.CourseID}}"><i class="fa fa-trash"></i></a>
+              </td>
             </tr>
             </tbody>
           </table>
         </div>
       </div>
-      <div class="modal-footer">
-        <a href="/admin">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </a>
-      </div>
+<!--      <div class="modal-footer">-->
+<!--        <a href="@{'/expert' + '?userID=' + ${l.UserID}}">-->
+<!--          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
+<!--        </a>-->
+<!--      </div>-->
       </a>
     </div>
   </div>
 </div>
 <!-- partial -->
-<script>
-        function showDeleteConfirmation(id) {
-            var result = window.confirm("Are you sure you want to delete?");
-            if (result) {
-                 window.location.href ="delete/"+id;
-                console.log("Item deleted.");
-            }
-        }
-    </script>
 </body>
 </html>

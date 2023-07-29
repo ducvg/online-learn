@@ -20,6 +20,9 @@ public interface CouRepository extends JpaRepository<Course,Integer> {
             " where course.CourseID = :id",nativeQuery = true )
     Course findCouByID(int id);
 
+    @Query(value ="SELECT distinct c.CourseID From ols.course c",nativeQuery = true )
+    List<Integer> getAllCourseID();
+
     @Query(value ="SELECT\n" +
             "  u.Name\n" +
             "FROM\n" +
@@ -42,6 +45,7 @@ public interface CouRepository extends JpaRepository<Course,Integer> {
             "ORDER BY\n" +
             "  c.CourseID ASC;",nativeQuery = true )
     List<Object[]> getListCou();
+
 
 
 }

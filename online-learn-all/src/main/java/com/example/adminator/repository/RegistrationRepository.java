@@ -42,14 +42,7 @@ public interface RegistrationRepository extends JpaRepository<Registration, Inte
 //    @Modifying
 //    @Query("SELECT * FROM Registration r WHERE r.UserID = :UserID")
 //    List<Registration> viewAllRegistrationByUserID(@Param("UserID") Integer UserID);
-//
-//    @Modifying
-//    @Query("SELECT * FROM Test t WHERE r.UserID = :UserID")
-//    List<Test> userTakeTest(@Param("UserID") Integer UserID);
-//
-//    @Modifying
-//    @Query("SELECT * FROM TestResult tr WHERE tr.UserID = :UserID")
-//    List<Test> userViewResult(@Param("UserID") Integer UserID);
+
 
 
 }

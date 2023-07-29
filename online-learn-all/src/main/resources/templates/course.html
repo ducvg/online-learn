@@ -1,1286 +1,182 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
-    />
-    <title>F-Study</title>
-    <link rel="stylesheet" href="style/Bootstrap/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="style/Bootstrap/js/bootstrap.bundle.min.js" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.min.css"
-      integrity="sha512-8M8By+q+SldLyFJbybaHoAPD6g07xyOcscIOQEypDzBS+sTde5d6mlK2ANIZPnSyxZUqJfCNuaIvjBUi8/RS0w=="
-      crossorigin="anonymous"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link rel="stylesheet" href="style/course.css" />
-  </head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
+  />
+  <title>F-Study</title>
+  <link rel="stylesheet" href="style/Bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="style/Bootstrap/js/bootstrap.bundle.min.js" />
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/fullPage.js/3.0.9/fullpage.min.css"
+          integrity="sha512-8M8By+q+SldLyFJbybaHoAPD6g07xyOcscIOQEypDzBS+sTde5d6mlK2ANIZPnSyxZUqJfCNuaIvjBUi8/RS0w=="
+          crossorigin="anonymous"
+  />
+  <link
+          rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <link rel="stylesheet" href="style/course.css" />
+</head>
 
-  <body>
-    <nav
-      id="web-navbar"
-      class="nav-course navbar navbar-expand-lg navbar-dark fixed-top py-2"
-    >
-      <a class="navbar-brand" href="index.html"
-        ><img src="style/img/logo.png" alt=""
-      /></a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
+<body>
+<nav
+        id="web-navbar"
+        class="nav-course navbar navbar-expand-lg navbar-dark fixed-top py-2"
+>
+  <a class="navbar-brand" href="index.html"
+  ><img src="style/img/logo.png" alt=""
+  /></a>
+  <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/course">Course</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/About">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/contact">Contact</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="user.html">User</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="section web-header">
+  <div class="header-container">
+    <div class="header-content">
+      <h1>COURSES</h1>
+    </div>
+  </div>
+</div>
+
+<section class="main-container">
+  <h1>All our courses</h1>
+  <div class="row">
+  <div th:each="c : ${courses}" >
+
+    <div class="col-lg-3 col-md-6" >
+      <button type="button" data-toggle="modal" th:data-target="'#Modal' + ${c.courseID}">
+        <div class="course" th:class="'course ' + ${c.courseID}" th:style="'background-image: url(/style/img/' + ${c.thumbnail} + ')'">
+          <div class="course-container">
+            <p>[[${c.Title}]]</p>
+          </div>
+        </div>
       </button>
+    </div>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="index.html">Home</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="course.html">Course</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="about.html">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="contact.html">Contact</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="login.html">Login</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="user.html">User</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <!-- Modal -->
+    <div class="modal fade" th:id="'Modal' + ${c.courseID}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              Course Information
+            </h5>
+          </div>
+          <div class="modal-body">
+            <div class="pilihan">
+              <div class="Title">
+                <p style="font-weight: bold">Title:</p>
+                <p>[[${c.Title}]]</p>
+              </div>
 
-    <div class="section web-header">
-      <div class="header-container">
-        <div class="header-content">
-          <h1>COURSES</h1>
+              <div class="Discription">
+                  <p style="font-weight: bold">Course Description:</p>
+                <p>[[${c.Description}]]</p>
+              </div>
+
+              <div class="Experts">
+                <p style="font-weight: bold">Experts Assigned:</p>
+                <p>[[${c.toString()}]]</p>
+              </div>
+
+              <div class="Category">
+                <p style="font-weight: bold">Category:</p>
+                <p>[[${c.Category}]]</p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <form th:action="@{'course/material'}" method="post">
+              <input type="hidden" th:name="CourseID" th:value="${c.CourseID}" />
+              <button type="submit" class="btn btn-secondary">Register</button>
+            </form>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
     </div>
+    <!-- Modal End -->
 
-    <section class="main-container">
-      <h1>All our courses</h1>
+    </div>
+  </div>
+</section>
 
-      <div class="row">
-        <div class="col-lg-3 col-md-6">
-          <button
-            type="button"
-            data-toggle="modal"
-            data-target="#ModalEkonomika"
-          >
-            <div class="course ekonomika">
-              <div class="course-container">
-                <p>The Art of Storytelling</p>
-              </div>
-            </div>
-          </button>
-        </div>
-
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="ModalEkonomika"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Course Information
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="pilihan">
-                  <div class="Discription">
-                    <p>
-                      <a
-                        ><p style="font-weight: bold">Course Description:</p>
-
-                        This course will teach you the essential skills of
-                        storytelling. You will learn how to create compelling
-                        stories that engage and entertain your audience. You
-                        will also learn how to use storytelling to communicate
-                        effectively and to build relationships.
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Objectives">
-                    <p>
-                      <a
-                        ><p style="font-weight: bold">Course Objectives:</p>
-                        <ul>
-                          <li>Identify the key elements of a story</li>
-                          <li>
-                            Understand how these elements work together to
-                            create a compelling story
-                          </li>
-                          <li>
-                            Apply the principles of storytelling to your own
-                            writing
-                          </li>
-                          <li>Develop your oral storytelling skills</li>
-                          <li>
-                            Use storytelling to communicate effectively and to
-                            build relationships
-                          </li>
-                        </ul>
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Details">
-                    <p style="font-weight: bold">
-                      <a href="Course/1/1/Materi.html"
-                        >Course Details</a
-                      >
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <a href="./Course/1/1/Materi.html">
-                  <button
-                  type="button"
-                  class="btn btn-secondary"
-                >
-                  Register
-                </button>
-                </a>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal End -->
-
-        <div class="col-lg-3 col-md-6">
-          <button type="button" data-toggle="modal" data-target="#ModalHukum">
-            <div class="course hukum">
-              <div class="course-container">
-                <p>The Science of Success</p>
-              </div>
-            </div>
-          </button>
-        </div>
-
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="ModalHukum"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Course Information
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="pilihan">
-                  <div class="pilihan">
-                    <div class="Discription">
-                      <p>
-                        <a
-                        ><p style="font-weight: bold">Course Description:</p>
-
-                          This course will teach you the essential skills of
-                          storytelling. You will learn how to create compelling
-                          stories that engage and entertain your audience. You
-                          will also learn how to use storytelling to communicate
-                          effectively and to build relationships.
-                        </a>
-                      </p>
-                    </div>
-                    <div class="Objectives">
-                      <p>
-                        <a
-                        ><p style="font-weight: bold">Course Objectives:</p>
-                          <ul>
-                            <li>Identify the key elements of a story</li>
-                            <li>
-                              Understand how these elements work together to
-                              create a compelling story
-                            </li>
-                            <li>
-                              Apply the principles of storytelling to your own
-                              writing
-                            </li>
-                            <li>Develop your oral storytelling skills</li>
-                            <li>
-                              Use storytelling to communicate effectively and to
-                              build relationships
-                            </li>
-                          </ul>
-                        </a>
-                      </p>
-                    </div>
-                    <div class="Details">
-                      <p style="font-weight: bold">
-                        <a href="Course/1/1/Materi.html"
-                        >Course Details</a
-                        >
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <a href="./Course/2/2/Materi.html">
-                  <button
-                          type="button"
-                          class="btn btn-secondary"
-                  >
-                    Register
-                  </button>
-                </a>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal End -->
-
-        <div class="col-lg-3 col-md-6">
-          <button
-            type="button"
-            data-toggle="modal"
-            data-target="#ModalIlmuBudaya"
-          >
-            <div class="course budaya">
-              <div class="course-container">
-                <p>The Power of Persuasion</p>
-              </div>
-            </div>
-          </button>
-        </div>
-
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="ModalIlmuBudaya"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Course Information
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="pilihan">
-                  <div class="Discription">
-                    <p>
-                      <a
-                      ><p style="font-weight: bold">Course Description:</p>
-
-                        This course will teach you the essential skills of
-                        storytelling. You will learn how to create compelling
-                        stories that engage and entertain your audience. You
-                        will also learn how to use storytelling to communicate
-                        effectively and to build relationships.
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Objectives">
-                    <p>
-                      <a
-                      ><p style="font-weight: bold">Course Objectives:</p>
-                        <ul>
-                          <li>Identify the key elements of a story</li>
-                          <li>
-                            Understand how these elements work together to
-                            create a compelling story
-                          </li>
-                          <li>
-                            Apply the principles of storytelling to your own
-                            writing
-                          </li>
-                          <li>Develop your oral storytelling skills</li>
-                          <li>
-                            Use storytelling to communicate effectively and to
-                            build relationships
-                          </li>
-                        </ul>
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Details">
-                    <p style="font-weight: bold">
-                      <a href="Course/1/1/Materi.html"
-                      >Course Details</a
-                      >
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <a href="./Course/3/3/Materi.html">
-                  <button
-                          type="button"
-                          class="btn btn-secondary"
-                  >
-                    Register
-                  </button>
-                </a>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal End -->
-
-        <div class="col-lg-3 col-md-6">
-          <button
-            type="button"
-            data-toggle="modal"
-            data-target="#ModalIlmuSospol"
-          >
-            <div class="course sosial">
-              <div class="course-container">
-                <p>The Future of Technology</p>
-              </div>
-            </div>
-          </button>
-        </div>
-
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="ModalIlmuSospol"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Course Information
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="pilihan">
-                  <div class="pilihan">
-                    <div class="Discription">
-                      <p>
-                        <a
-                        ><p style="font-weight: bold">Course Description:</p>
-
-                          This course will teach you the essential skills of
-                          storytelling. You will learn how to create compelling
-                          stories that engage and entertain your audience. You
-                          will also learn how to use storytelling to communicate
-                          effectively and to build relationships.
-                        </a>
-                      </p>
-                    </div>
-                    <div class="Objectives">
-                      <p>
-                        <a
-                        ><p style="font-weight: bold">Course Objectives:</p>
-                          <ul>
-                            <li>Identify the key elements of a story</li>
-                            <li>
-                              Understand how these elements work together to
-                              create a compelling story
-                            </li>
-                            <li>
-                              Apply the principles of storytelling to your own
-                              writing
-                            </li>
-                            <li>Develop your oral storytelling skills</li>
-                            <li>
-                              Use storytelling to communicate effectively and to
-                              build relationships
-                            </li>
-                          </ul>
-                        </a>
-                      </p>
-                    </div>
-                    <div class="Details">
-                      <p style="font-weight: bold">
-                        <a href="Course/1/1/Materi.html"
-                        >Course Details</a
-                        >
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <a href="./Course/4/4/Materi.html">
-                  <button
-                          type="button"
-                          class="btn btn-secondary"
-                  >
-                    Register
-                  </button>
-                </a>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal End -->
-      </div>
-
-      <div class="row">
-        <div class="col-lg-3 col-md-6">
-          <button
-            type="button"
-            data-toggle="modal"
-            data-target="#ModalKedokteran"
-          >
-            <div class="course dokter">
-              <div class="course-container">
-                <p>The Psychology of Influence</p>
-              </div>
-            </div>
-          </button>
-        </div>
-
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="ModalKedokteran"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Course Information
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="pilihan">
-                  <div class="Discription">
-                    <p>
-                      <a
-                      ><p style="font-weight: bold">Course Description:</p>
-
-                        This course will teach you the essential skills of
-                        storytelling. You will learn how to create compelling
-                        stories that engage and entertain your audience. You
-                        will also learn how to use storytelling to communicate
-                        effectively and to build relationships.
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Objectives">
-                    <p>
-                      <a
-                      ><p style="font-weight: bold">Course Objectives:</p>
-                        <ul>
-                          <li>Identify the key elements of a story</li>
-                          <li>
-                            Understand how these elements work together to
-                            create a compelling story
-                          </li>
-                          <li>
-                            Apply the principles of storytelling to your own
-                            writing
-                          </li>
-                          <li>Develop your oral storytelling skills</li>
-                          <li>
-                            Use storytelling to communicate effectively and to
-                            build relationships
-                          </li>
-                        </ul>
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Details">
-                    <p style="font-weight: bold">
-                      <a href="Course/1/1/Materi.html"
-                      >Course Details</a
-                      >
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <a href="./Course/5/5/Materi.html">
-                  <button
-                          type="button"
-                          class="btn btn-secondary"
-                  >
-                    Register
-                  </button>
-                </a>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal End -->
-
-        <div class="col-lg-3 col-md-6">
-          <button type="button" data-toggle="modal" data-target="#ModalKesmas">
-            <div class="course kesmas">
-              <div class="course-container">
-                <p>The Art of Negotiation</p>
-              </div>
-            </div>
-          </button>
-        </div>
-
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="ModalKesmas"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Course Information
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="pilihan">
-                  <div class="Discription">
-                    <p>
-                      <a
-                      ><p style="font-weight: bold">Course Description:</p>
-
-                        This course will teach you the essential skills of
-                        storytelling. You will learn how to create compelling
-                        stories that engage and entertain your audience. You
-                        will also learn how to use storytelling to communicate
-                        effectively and to build relationships.
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Objectives">
-                    <p>
-                      <a
-                      ><p style="font-weight: bold">Course Objectives:</p>
-                        <ul>
-                          <li>Identify the key elements of a story</li>
-                          <li>
-                            Understand how these elements work together to
-                            create a compelling story
-                          </li>
-                          <li>
-                            Apply the principles of storytelling to your own
-                            writing
-                          </li>
-                          <li>Develop your oral storytelling skills</li>
-                          <li>
-                            Use storytelling to communicate effectively and to
-                            build relationships
-                          </li>
-                        </ul>
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Details">
-                    <p style="font-weight: bold">
-                      <a href="Course/1/1/Materi.html"
-                      >Course Details</a
-                      >
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <a href="./Course/6/6/Materi.html">
-                  <button
-                          type="button"
-                          class="btn btn-secondary"
-                  >
-                    Register
-                  </button>
-                </a>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal End -->
-
-        <div class="col-lg-3 col-md-6">
-          <button
-            type="button"
-            data-toggle="modal"
-            data-target="#ModalPerikanan"
-          >
-            <div class="course ikan">
-              <div class="course-container">
-                <p>The Science of Happiness</p>
-              </div>
-            </div>
-          </button>
-        </div>
-
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="ModalPerikanan"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Course Information
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="pilihan">
-                  <div class="Discription">
-                    <p>
-                      <a
-                      ><p style="font-weight: bold">Course Description:</p>
-
-                        This course will teach you the essential skills of
-                        storytelling. You will learn how to create compelling
-                        stories that engage and entertain your audience. You
-                        will also learn how to use storytelling to communicate
-                        effectively and to build relationships.
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Objectives">
-                    <p>
-                      <a
-                      ><p style="font-weight: bold">Course Objectives:</p>
-                        <ul>
-                          <li>Identify the key elements of a story</li>
-                          <li>
-                            Understand how these elements work together to
-                            create a compelling story
-                          </li>
-                          <li>
-                            Apply the principles of storytelling to your own
-                            writing
-                          </li>
-                          <li>Develop your oral storytelling skills</li>
-                          <li>
-                            Use storytelling to communicate effectively and to
-                            build relationships
-                          </li>
-                        </ul>
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Details">
-                    <p style="font-weight: bold">
-                      <a href="Course/1/1/Materi.html"
-                      >Course Details</a
-                      >
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <a href="./Course/7/7/Materi.html">
-                  <button
-                          type="button"
-                          class="btn btn-secondary"
-                  >
-                    Register
-                  </button>
-                </a>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal End -->
-
-        <div class="col-lg-3 col-md-6">
-          <button
-            type="button"
-            data-toggle="modal"
-            data-target="#ModalPeternakan"
-          >
-            <div class="course ternak">
-              <div class="course-container">
-                <p>The Power of Mindset</p>
-              </div>
-            </div>
-          </button>
-        </div>
-
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="ModalPeternakan"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Course Information
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="pilihan">
-                  <div class="Discription">
-                    <p>
-                      <a
-                      ><p style="font-weight: bold">Course Description:</p>
-
-                        This course will teach you the essential skills of
-                        storytelling. You will learn how to create compelling
-                        stories that engage and entertain your audience. You
-                        will also learn how to use storytelling to communicate
-                        effectively and to build relationships.
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Objectives">
-                    <p>
-                      <a
-                      ><p style="font-weight: bold">Course Objectives:</p>
-                        <ul>
-                          <li>Identify the key elements of a story</li>
-                          <li>
-                            Understand how these elements work together to
-                            create a compelling story
-                          </li>
-                          <li>
-                            Apply the principles of storytelling to your own
-                            writing
-                          </li>
-                          <li>Develop your oral storytelling skills</li>
-                          <li>
-                            Use storytelling to communicate effectively and to
-                            build relationships
-                          </li>
-                        </ul>
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Details">
-                    <p style="font-weight: bold">
-                      <a href="Course/1/1/Materi.html"
-                      >Course Details</a
-                      >
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <a href="./Course/8/8/Materi.html">
-                  <button
-                          type="button"
-                          class="btn btn-secondary"
-                  >
-                    Register
-                  </button>
-                </a>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal End -->
-      </div>
-
-      <div class="row">
-        <div class="col-lg-3 col-md-6">
-          <button
-            type="button"
-            data-toggle="modal"
-            data-target="#ModalPsikologi"
-          >
-            <div class="course psikologi">
-              <div class="course-container">
-                <p>The Future of Work</p>
-              </div>
-            </div>
-          </button>
-        </div>
-
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="ModalPsikologi"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Course Information
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="pilihan">
-                  <div class="Discription">
-                    <p>
-                      <a
-                      ><p style="font-weight: bold">Course Description:</p>
-
-                        This course will teach you the essential skills of
-                        storytelling. You will learn how to create compelling
-                        stories that engage and entertain your audience. You
-                        will also learn how to use storytelling to communicate
-                        effectively and to build relationships.
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Objectives">
-                    <p>
-                      <a
-                      ><p style="font-weight: bold">Course Objectives:</p>
-                        <ul>
-                          <li>Identify the key elements of a story</li>
-                          <li>
-                            Understand how these elements work together to
-                            create a compelling story
-                          </li>
-                          <li>
-                            Apply the principles of storytelling to your own
-                            writing
-                          </li>
-                          <li>Develop your oral storytelling skills</li>
-                          <li>
-                            Use storytelling to communicate effectively and to
-                            build relationships
-                          </li>
-                        </ul>
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Details">
-                    <p style="font-weight: bold">
-                      <a href="Course/1/1/Materi.html"
-                      >Course Details</a
-                      >
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <a href="./Course/9/9/Materi.html">
-                  <button
-                          type="button"
-                          class="btn btn-secondary"
-                  >
-                    Register
-                  </button>
-                </a>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal End -->
-
-        <div class="col-lg-3 col-md-6">
-          <button type="button" data-toggle="modal" data-target="#ModalSains">
-            <div class="course sains">
-              <div class="course-container">
-                <p>The Joy of Learning</p>
-              </div>
-            </div>
-          </button>
-        </div>
-
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="ModalSains"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Course Information
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="pilihan">
-                  <div class="Discription">
-                    <p>
-                      <a
-                      ><p style="font-weight: bold">Course Description:</p>
-
-                        This course will teach you the essential skills of
-                        storytelling. You will learn how to create compelling
-                        stories that engage and entertain your audience. You
-                        will also learn how to use storytelling to communicate
-                        effectively and to build relationships.
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Objectives">
-                    <p>
-                      <a
-                      ><p style="font-weight: bold">Course Objectives:</p>
-                        <ul>
-                          <li>Identify the key elements of a story</li>
-                          <li>
-                            Understand how these elements work together to
-                            create a compelling story
-                          </li>
-                          <li>
-                            Apply the principles of storytelling to your own
-                            writing
-                          </li>
-                          <li>Develop your oral storytelling skills</li>
-                          <li>
-                            Use storytelling to communicate effectively and to
-                            build relationships
-                          </li>
-                        </ul>
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Details">
-                    <p style="font-weight: bold">
-                      <a href="Course/1/1/Materi.html"
-                      >Course Details</a
-                      >
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <a href="./Course/10/10/Materi.html">
-                  <button
-                          type="button"
-                          class="btn btn-secondary"
-                  >
-                    Register
-                  </button>
-                </a>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal End -->
-
-        <div class="col-lg-3 col-md-6">
-          <button type="button" data-toggle="modal" data-target="#ModalTeknik">
-            <div class="course teknik">
-              <div class="course-container">
-                <p>The Power of Creativity</p>
-              </div>
-            </div>
-          </button>
-        </div>
-
-        <!-- Modal -->
-        <div
-          class="modal fade"
-          id="ModalTeknik"
-          tabindex="-1"
-          aria-labelledby="exampleModalLabel"
-          aria-hidden="true"
-        >
-          <div class="modal-dialog modal-dialog-scrollable">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                  Course Information
-                </h5>
-                <button
-                  type="button"
-                  class="close"
-                  data-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="pilihan">
-                  <div class="Discription">
-                    <p>
-                      <a
-                      ><p style="font-weight: bold">Course Description:</p>
-
-                        This course will teach you the essential skills of
-                        storytelling. You will learn how to create compelling
-                        stories that engage and entertain your audience. You
-                        will also learn how to use storytelling to communicate
-                        effectively and to build relationships.
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Objectives">
-                    <p>
-                      <a
-                      ><p style="font-weight: bold">Course Objectives:</p>
-                        <ul>
-                          <li>Identify the key elements of a story</li>
-                          <li>
-                            Understand how these elements work together to
-                            create a compelling story
-                          </li>
-                          <li>
-                            Apply the principles of storytelling to your own
-                            writing
-                          </li>
-                          <li>Develop your oral storytelling skills</li>
-                          <li>
-                            Use storytelling to communicate effectively and to
-                            build relationships
-                          </li>
-                        </ul>
-                      </a>
-                    </p>
-                  </div>
-                  <div class="Details">
-                    <p style="font-weight: bold">
-                      <a href="Course/1/1/Materi.html"
-                      >Course Details</a
-                      >
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <a href="./Course/11/11/Materi.html">
-                  <button
-                          type="button"
-                          class="btn btn-secondary"
-                  >
-                    Register
-                  </button>
-                </a>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-dismiss="modal"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Modal End -->
-      </div>
-    </section>
-
-    <footer id="footer">
-      <div class="icon">
-        <a target="_blank" href="mailto: F-Learning.startup@gmail.com">
+<footer id="footer">
+  <div class="icon">
+    <a target="_blank" href="mailto: edukas1.startup@gmail.com">
           <span class="fa-stack fa-lg">
             <i class="fas fa-circle fa-stack-2x"></i>
             <i class="fas fa-envelope fa-stack-1x white"></i>
           </span>
-        </a>
-        <a target="_blank" href="https://www.instagram.com/F-Learning/">
+    </a>
+    <a target="_blank" href="https://www.instagram.com/edukas1/">
           <span class="fa-stack fa-lg">
             <i class="fas fa-circle fa-stack-2x"></i>
             <i class="fab fa-instagram fa-stack-1x white"></i>
           </span>
-        </a>
-        <a target="_blank" href="https://twitter.com/S1Eduka">
+    </a>
+    <a target="_blank" href="https://twitter.com/S1Eduka">
           <span class="fa-stack fa-lg">
             <i class="fas fa-circle fa-stack-2x"></i>
             <i class="fab fa-twitter fa-stack-1x white"></i>
           </span>
-        </a>
-      </div>
-      <p>F-Learning &copy; 2023. All rights reserved.</p>
-    </footer>
+    </a>
+  </div>
+  <p>F-Learning &copy; 2023. All rights reserved.</p>
+</footer>
 
-    <script
-      src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-      integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://kit.fontawesome.com/9fb210ee5d.js"
-      crossorigin="anonymous"
-    ></script>
-    <script src="js/course.js"></script>
-  </body>
+<script
+        src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"
+></script>
+<script
+        src="https://kit.fontawesome.com/9fb210ee5d.js"
+        crossorigin="anonymous"
+></script>
+<script src="js/course.js"></script>
+</body>
 </html>

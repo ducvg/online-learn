@@ -76,15 +76,4 @@ public class LoggingController {
         return "redirect:/register";
     }
 
-//    @PostMapping("/login")
-//    public String postLogin(@RequestParam("email") String email, @RequestParam("password") String password, Model model, HttpSession session) {
-//        User u = userService.findEmail(email);
-//        if (u != null && u.getPassword().equals(password)) {
-//            session.setAttribute("user", u);
-//            return "redirect:/";
-//        } else {
-//            model.addAttribute("error", "Check your email and password again!");
-//            return "redirect:/signin";
-//        }
-//    }
 }
