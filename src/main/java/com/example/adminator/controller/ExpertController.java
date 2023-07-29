@@ -1,6 +1,6 @@
 package com.example.adminator.controller;
 
-import com.example.adminator.join.CourseExpertJoin;
+import com.example.adminator.Join.CourseExpertJoin;
 import com.example.adminator.model.CourseExpert;
 import com.example.adminator.service.ExpertService;
 import org.springframework.beans.factory.annotation.Autowired;

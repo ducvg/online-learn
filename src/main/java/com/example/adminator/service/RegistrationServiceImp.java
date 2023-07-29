@@ -1,6 +1,5 @@
 package com.example.adminator.service;
 
-import com.example.adminator.model.Course;
 import com.example.adminator.model.Registration;
 import com.example.adminator.repository.RegistrationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class RegServiceImp implements RegService{
+public class RegistrationServiceImp implements RegistrationService {
     @Autowired
     private RegistrationRepository RegRepository;
 

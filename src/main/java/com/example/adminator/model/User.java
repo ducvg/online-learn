@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "user")
 @Getter
@@ -34,6 +36,18 @@ public class User{
     @Column(name = "Status")
     private boolean status;
 
+    @Column(name = "Phone")
+    private String phone;
+
+    @Column(name = "DOB")
+    private Date dob;
+
+    @Column(name = "Gender")
+    private String gender;
+
+    @Column(name = "Nationality")
+    private String nationality;
+
     public User(String name, String email, String password, String role, boolean status) {
         this.name = name;
         this.email = email;
@@ -41,4 +55,5 @@ public class User{
         this.role = role;
         this.status = status;
     }
+
 }
