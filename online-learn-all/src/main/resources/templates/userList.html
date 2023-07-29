@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit User</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+  .modal{
+    overflow: auto;
+  }
+    .crud {
+  width:100px;
+  vertical-align: middle !important;
+}
+.crud a {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 5px;
+  min-width: 24px;
+  font-size:1.5em;
+}
+.add-new {
+  float:right;
+  margin-bottom: 5px;
+}
+#servers_modal table.table td .add {
+display: inline-block;
+}
+#servers_modal table.table .form-control.error {
+  border-color: #f50000;
+}
+.modal-lg{width: 1234px;}
+.table-wrapper {
+    max-height: 90vh; /* Adjust this value as needed */
+    height: auto;
+    overflow-y: auto;
+  }
+.box {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #000;
+    margin-left: 5px;
+}
+form {
+  display: flex;
+}
+
+.action-button {
+  height: 30px;
+  width: 50px;
+  flex: 1;
+  font-size: 14px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.ban-button {
+  background-color: red;
+}
+
+.unban-button {
+  background-color: green;
+}
+
+    </style>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="modal" id="servers_modal" style="display:block;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Manager Users</h4>
+            </div>
+            <div class="modal-body">
+                <div class="table-wrapper">
+                    <div class="table-title">
+                        <button type="button" onclick="window.location.href='add';" class="btn btn-primary add-new">
+                            <i class="fa fa-plus"></i> Add User
+                        </button>
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>User Name</th>
+                            <th>Email</th>
+                            <th>Password</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="servers_table" runat="server" ClientIDMode="static" data-delete="">
+                        <tr th:each="user : ${users}">
+                            <td>[[${user.name}]]</td>
+                            <td>[[${user.email}]]</td>
+                            <td class="pw">[[${user.password}]]<input type="hidden" value="password" name="password">
+                            </td>
+                            <td>[[${user.role}]]</td>
+                            <td>
+                                <div class="status">
+                                    <label th:for="'status_true_' + ${user.userID}">
+                                      <span th:if="${user.status}">
+                                        <i class="fas fa-check-circle" style="color: green;"></i> <!-- Icon tích màu xanh -->
+                                      </span><span th:unless="${user.status}">
+                                        <i class="fas fa-times-circle" style="color: red;"></i> <!-- Icon dấu x màu đỏ -->
+                                      </span>
+                                    </label>
+                                </div>
+                            </td>
+                            <td class="crud">
+                                <div style="display: flex; align-items: center;">
+                                    <a th:href="@{'update/' + ${user.userID}}" style="margin-right: 10px;"><i class="fas fa-edit"></i></a>
+                                    <a th:href="@{'delete/' + ${user.userID}}" style="margin-right: 10px;"><i class="fas fa-trash-alt"></i></a>
+                                    <form th:action="@{'ban'}" method="post">
+                                        <input type="hidden" th:name="userID" th:value="${user.userID}" />
+                                        <th:block th:if="${user.status}">
+                                            <input type="hidden" th:name="status" th:value="false"  />
+                                            <!-- Nút (button) Ban -->
+                                            <button type="submit" class="action-button ban-button">Ban</button>
+                                        </th:block>
+                                        <th:block th:unless="${user.status}">
+                                            <input type="hidden" th:name="status" th:value="true"  />
+                                            <!-- Nút (button) UnBan -->
+                                            <button type="submit" class="action-button unban-button">UnBan</button>
+                                        </th:block>
+                                    </form>
+
+                                </div>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="./admindashboard.html">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </a>
+            </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmBan(userID, status) {
+  var message = status ? "Bạn có muốn Unban user không?" : "Bạn có muốn Ban user không?";
+  if (confirm(message)) {
+    var radios = document.getElementsByName("status_" + userID);
+    for (var i = 0; i < radios.length; i++) {
+      radios[i].checked = radios[i].value === String(status);
+    }
+
+    var url = "/user/ban/" + userID;
+    var data = {
+      userID: userID,
+      status: status
+    };
+
+    // Gửi yêu cầu AJAX hoặc thực hiện các hành động khác tại đây
+
+    console.log("userID: ", userID);
+    console.log("status: ", status);
+  }
+}
+</script>
+<!-- partial -->
+</body>
+</html>
