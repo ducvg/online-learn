@@ -54,27 +54,27 @@ public class LessonController {
         return "redirect:/lesson/list";
     }
 
-//    @GetMapping("/update/{id}")
-//    public String editLessonForm(@PathVariable("id") Integer id, Model model) {
-//        Lesson lesson = lessonService.findLesson(id);
-//        List<Integer> courseid = couService.getAllCourseID();
-//        model.addAttribute("courseid", courseid);
-//        model.addAttribute("lessons", lesson);
-//        return "editlesson";
-//    }
-//
-//    @PostMapping("/update/{id}")
-//    public String updateLesson(@PathVariable("id") Integer id, @RequestParam("Title") String title, @RequestParam("Content") String content,
-//                               @RequestParam("Video") String video, @RequestParam("Resource") String resource, @RequestParam("courseidSelect") int courseidSelect) {
-//        Lesson existingLesson = lessonService.findLesson(id);
-//        existingLesson.setCourseID(courseidSelect);
-//        existingLesson.setTitle(title);
-//        existingLesson.setContent(content);
-//        existingLesson.setVideo(video);
-//        existingLesson.setResource(resource);
-//        lessonService.update(existingLesson);
-//        return "redirect:/lesson/list";
-//    }
+    @GetMapping("/update/{id}")
+    public String editLessonForm(@PathVariable("id") Integer id, Model model) {
+        Lesson lesson = lessonService.findLesson(id);
+        List<Integer> courses = couService.getAllCourseID();
+        model.addAttribute("courses", courses);
+        model.addAttribute("lesson", lesson);
+        return "editlesson";
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateLesson(@PathVariable("id") Integer id, @RequestParam("Title") String title, @RequestParam("Content") String content,
+                               @RequestParam("Video") String video, @RequestParam("Resource") String resource, @RequestParam("selectedCourseID") int selectedCourseID) {
+        Lesson existingLesson = lessonService.findLesson(id);
+        existingLesson.setCourseID(selectedCourseID);
+        existingLesson.setTitle(title);
+        existingLesson.setContent(content);
+        existingLesson.setVideo(video);
+        existingLesson.setResource(resource);
+        lessonService.update(existingLesson);
+        return "redirect:/lesson/list";
+    }
 
     @GetMapping("/delete/{id}")
     public String deleteLesson(@PathVariable("id") Integer id) {

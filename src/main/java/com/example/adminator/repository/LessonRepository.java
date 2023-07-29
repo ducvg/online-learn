@@ -20,9 +20,6 @@ public interface LessonRepository extends JpaRepository<Lesson,Integer> {
     List<String> findCourseByCourseID(int id);
     @Query(value ="select l.LessonID from Lesson ",nativeQuery = true )
     List<String> findLesson(int id);
-
-
-
     @Query(value ="SELECT distinct\n" +
             " l.LessonID,\n" +
             "c.CourseID,\n" +
