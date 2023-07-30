@@ -10,6 +10,7 @@ html {
     margin: 0;
     padding: 0;
     scroll-behavior: smooth;
+
 }
 
 * {
@@ -103,13 +104,16 @@ nav button.navbar-toggler:active {
     margin-bottom: 50px;
     width: 270px;
 }
-.Objectives{
+.Title{
     padding-left: 10px;
 }
-.Discription{
+.Description{
     padding-left: 10px;
 }
-.Details{
+.Experts{
+    padding-left: 10px;
+}
+.Category{
     padding-left: 10px;
 }
 .course-container {
@@ -143,60 +147,7 @@ nav button.navbar-toggler:active {
     text-decoration: underline;
 }
 
-.ekonomika {
-    background-image: url(img/Ekonomika.PNG);
-    /* Picture Credit = Created by Robert Anasch from Unsplash.com */
-}
 
-.hukum {
-    background-image: url(img/Hukum.PNG);
-    /* Picture Credit = Created by Tingey Injury Law Firm from Unsplash.com */
-}
-
-.budaya {
-    background-image: url(img/Ilmubudaya.PNG);
-    /* Picture Credit = Created by Pavan Gupta from Unsplash.com */
-}
-
-.sosial {
-    background-image: url(img/Ilmusosialpolitik.PNG);
-    /* Picture Credit = Created by Marco Oriolesi from Unsplash.com */
-}
-
-.dokter {
-    background-image: url(img/Kedokteran.PNG);
-    /* Picture Credit = Created by Javier Matheu from Unsplash.com */
-}
-
-.kesmas {
-    background-image: url(img/Kesmas.PNG);
-    /* Picture Credit = Created by Dan Gold from Unsplash.com */
-}
-
-.ikan {
-    background-image: url(img/Perikanan.PNG);
-    /* Picture Credit = Created by Uber Scuba Gili from Unsplash.com */
-}
-
-.ternak {
-    background-image: url(img/Peternakan.PNG);
-    /* Picture Credit = Created by Stijn te Strake from Unsplash.com */
-}
-
-.psikologi {
-    background-image: url(img/Psikologi.PNG);
-    /* Picture Credit = Created by Sydney Sims from Unsplash.com */
-}
-
-.sains {
-    background-image: url(img/Sains.PNG);
-    /* Picture Credit = Created by Dawid Małecki from Unsplash.com */
-}
-
-.teknik {
-    background-image: url(img/Teknik.PNG);
-    /* Picture Credit = Created by Bill Oxford from Unsplash.com */
-}
 
 .course p {
     font-family: 'Roboto', sans-serif;

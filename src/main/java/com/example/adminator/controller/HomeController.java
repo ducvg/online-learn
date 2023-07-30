@@ -33,15 +33,6 @@ public class HomeController {
         return "about";
     }
 
-    @GetMapping("/course")
-    public String courseHome(Model model, Authentication authentication){
-        if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
-            User u = service.findEmail(authentication.getName());
-            model.addAttribute("user",u);
-        }
-        return "course";
-    }
-
     @GetMapping("/contact")
     public String contact(Model model, Authentication authentication){
         if (authentication != null && !(authentication instanceof AnonymousAuthenticationToken)) {
