@@ -114,4 +114,25 @@ public class CourseController {
         return "redirect:/course/list";
     }
 
+    @GetMapping("")
+    public String getCourses(Model model, HttpSession session) {
+//        if(session.getAttribute("role") != "Admin"){
+//            return "";
+//        }
+
+        List<Object[]> listCou = couService.getListCou();
+        List<CourseUserCategoryJoin> list = new ArrayList<>();
+        List<String> experts = new ArrayList<>();
+        String[] expert;
+        for (Object[] row : listCou) {
+            experts = couService.findCouExpertByCouID((int) row[0]);
+            expert = new String[experts.size()];
+            for (int i = 0; i < experts.size(); i++) {
+                expert[i] = experts.get(i);
+            }
+            list.add(new CourseUserCategoryJoin((int) row[0], (String) row[1], (String) row[2], (String) row[3], expert, (String) row[4]));
+        }
+        model.addAttribute("courses", list);
+        return "course";
+    }
 }
