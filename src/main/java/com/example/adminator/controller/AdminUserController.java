@@ -17,7 +17,7 @@ public class AdminUserController {
     private UserService userService;
 
 
-    @GetMapping("/list")
+    @GetMapping("")
     public String getAllCou(Model model){
         List<User> list= userService.getListUser();
         model.addAttribute("users",list);
@@ -37,7 +37,7 @@ public class AdminUserController {
                                @RequestParam("status") boolean status) {
         User newUser = new User(name,email,password,selectedRole,status);
         userService.add(newUser);
-        return "redirect:/admin/user/list";
+        return "redirect:/admin/user";
     }
 
     @GetMapping("/update/{id}")
@@ -61,14 +61,14 @@ public class AdminUserController {
         existingUser.setRole(selectedRole);
         existingUser.setStatus(status);
         userService.update(existingUser);
-        return "redirect:/admin/user/list";
+        return "redirect:/admin/user";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id) {
         User user = userService.findUser(id);
         userService.delete(user);
-        return "redirect:/admin/user/list";
+        return "redirect:/admin/user";
     }
 
     @PostMapping("/ban")
@@ -76,7 +76,7 @@ public class AdminUserController {
         User newUser = userService.findUser(userID);
         newUser.setStatus(status);
         userService.update(newUser);
-        return "redirect:/admin/user/list";
+        return "redirect:/admin/user";
     }
 
 }

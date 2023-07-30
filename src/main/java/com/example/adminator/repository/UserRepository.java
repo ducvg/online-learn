@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<User,Integer > {
     @Query(value ="select * from user where role = 'ROLE_Expert'",nativeQuery = true )
     List<User> getAllExpert();
 
-    @Query(value = "SELECT u.UserID, u.Name, u.Email, u.Password, u.Role,u.Status\n" +
+    @Query(value = "SELECT *\n" +
             " FROM ols.user u\n" +
             "order by u.Role", nativeQuery = true)
     List<User> getListUser();

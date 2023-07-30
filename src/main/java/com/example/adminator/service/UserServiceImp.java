@@ -1,8 +1,10 @@
 package com.example.adminator.service;
 
+import com.example.adminator.model.CourseExpert;
+import com.example.adminator.model.Registration;
+import com.example.adminator.model.TestResult;
 import com.example.adminator.model.User;
-import com.example.adminator.repository.CouRepository;
-import com.example.adminator.repository.UserRepository;
+import com.example.adminator.repository.*;
 import org.hibernate.sql.results.internal.domain.CircularFetchImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +19,10 @@ public class UserServiceImp implements UserService{
 
     @Autowired
     private UserRepository userRepo;
+    @Autowired private RegistrationRepository registrationRepo;
+    @Autowired private CourseExpertRepository courseExpertRepository;
+    @Autowired private TestResultRepository testResultRepository;
+
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -68,7 +74,13 @@ public class UserServiceImp implements UserService{
 
     @Override
     public void delete(User user) {
+        List<Registration> registrations = registrationRepo.getRegByUserID(user.getUserID());
+        List<TestResult> results = testResultRepository.getUserTestResult(user.getUserID());
+        List<CourseExpert> experts = courseExpertRepository.getCourseExpertByUser(user.getUserID());
+        for (Registration r : registrations){registrationRepo.delete(r);}
+        for (TestResult tr : results) {testResultRepository.delete(tr);}
+        for (CourseExpert ce : experts) {courseExpertRepository.delete(ce);}
         userRepo.delete(user);
-    }
 
+    }
 }

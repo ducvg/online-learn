@@ -35,7 +35,7 @@ public class AdminCourseController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/list")
+    @GetMapping
     public String getAllCou(Model model) {
         List<Object[]> listCou = couService.getListCou();
         List<CourseUserCategoryJoin> list = new ArrayList<>();
@@ -104,14 +104,14 @@ public class AdminCourseController {
 
         existingCou.setCategoryID(cateID);
         couService.save(existingCou);
-        return "redirect:/admin/course/list";
+        return "redirect:/admin/course";
     }
 
     @GetMapping("/delete/{id}")
     public String deleteCou(@PathVariable("id") Integer id) {
         Course course = couService.findCou(id);
         couService.delete(course);
-        return "redirect:/admin/course/list";
+        return "redirect:/admin/course";
     }
 
 }

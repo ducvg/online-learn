@@ -4,10 +4,11 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
+import java.util.Date;
 
 
 @Entity
-@Table(name = "course")
+@Table(name = "registration")
 @Getter
 @Setter
 @Builder
@@ -27,10 +28,10 @@ public class Registration implements Serializable{
     private String userID;
 
     @Column(name = "RegistrationDate")
-    private String registrationDate;
+    private Date registrationDate;
 
     @Column(name = "EndDate")
-    private String endDate;
+    private Date endDate;
 
     @Column(name = "Status")
     private Integer status;

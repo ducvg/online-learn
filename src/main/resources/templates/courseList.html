@@ -54,7 +54,7 @@ display: inline-block;
       <div class="modal-body">
         <div class="table-wrapper">
           <div class="table-title">
-            <button type="button" onclick="window.location.href='add';" class="btn btn-primary add-new">
+            <button type="button" onclick="window.location.href='course/add';" class="btn btn-primary add-new">
               <i class="fa fa-plus"></i> Add Course
             </button>
           </div>
@@ -79,7 +79,7 @@ display: inline-block;
                 <td>[[${c.toString()}]]</td>
                 <td>[[${c.Category}]]</td>
                 <td class="crud">
-                  <a th:href="@{'update/'+${c.CourseID}}"><i class="fa fa-pencil"></i></a>
+                  <a th:href="@{'course/update/'+${c.CourseID}}"><i class="fa fa-pencil"></i></a>
                   <a th:onclick="|showDeleteConfirmation('${c.CourseID}')|"><i class="fa fa-trash"></i></a>
                 </td>
             </tr>
@@ -101,7 +101,7 @@ display: inline-block;
         function showDeleteConfirmation(id) {
             var result = window.confirm("Are you sure you want to delete?");
             if (result) {
-                 window.location.href ="delete/"+id;
+                 window.location.href ="course/delete/"+id;
                 console.log("Item deleted.");
             }
         }
