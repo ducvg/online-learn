@@ -1,9 +1,10 @@
-package com.example.adminator.Join;
+package com.example.adminator.join;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter@Setter
+@Getter
+@Setter
 public class CourseExpertJoin {
     private String Name;
     private String Email;

@@ -24,13 +24,6 @@ public class AdminUserController {
         return "userList";
     }
 
-    @GetMapping("/add")
-    public String addUserForm(Model model) {
-        List<String> roles = userService.listRole();
-        model.addAttribute("roles",roles);
-        return "adduser";
-    }
-
     @PostMapping("/add")
     public String addCouSubmit(@RequestParam("username") String name, @RequestParam("email") String email,
                                @RequestParam("password") String password, @RequestParam("selectedRole") String selectedRole,
@@ -43,8 +36,6 @@ public class AdminUserController {
     @GetMapping("/update/{id}")
     public String editUserForm(@PathVariable("id") Integer id, Model model) {
         User user = userService.findUser(id);
-        List<String> roles = userService.listRole();
-        model.addAttribute("roles",roles);
         model.addAttribute("user", user);
         return "edituser";
     }

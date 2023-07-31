@@ -5,10 +5,8 @@ import com.example.adminator.model.Registration;
 import com.example.adminator.model.TestResult;
 import com.example.adminator.model.User;
 import com.example.adminator.repository.*;
-import org.hibernate.sql.results.internal.domain.CircularFetchImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -50,11 +48,6 @@ public class UserServiceImp implements UserService{
     }
 
     @Override
-    public List<String> listRole() {
-        return userRepo.roleOfUser();
-    }
-
-    @Override
     public User add(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRole("ROLE_"+user.getRole());
@@ -81,6 +74,14 @@ public class UserServiceImp implements UserService{
         for (TestResult tr : results) {testResultRepository.delete(tr);}
         for (CourseExpert ce : experts) {courseExpertRepository.delete(ce);}
         userRepo.delete(user);
-
     }
+
+    @Override
+    public int countUser(){return userRepo.countUser();}
+
+    @Override
+    public int countActiveUser(){return userRepo.countActiveUser();}
+
+    @Override
+    public int countExpert(){return userRepo.countExpert();}
 }

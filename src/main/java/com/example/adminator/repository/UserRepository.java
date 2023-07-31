@@ -20,9 +20,6 @@ public interface UserRepository extends JpaRepository<User,Integer > {
             "order by u.Role", nativeQuery = true)
     List<User> getListUser();
 
-    @Query(value = "SELECT distinct u.Role From ols.user u",nativeQuery = true)
-    List<String> roleOfUser();
-
     @Query(value = "Select * from user where email = :email ", nativeQuery = true)
     User findEmail(@Param("email") String email);
 
@@ -31,5 +28,12 @@ public interface UserRepository extends JpaRepository<User,Integer > {
     @Query("UPDATE User u SET u.status = :status WHERE u.userID = :userID")
     void updateUserStatus( @Param("status") boolean status, @Param("userID") int userID);
 
+    @Query(value = "SELECT COUNT(*) FROM User;",nativeQuery = true)
+    int countUser();
 
+    @Query(value = "SELECT COUNT(*) AS ActiveUsers FROM User WHERE Status = 1;",nativeQuery = true)
+    int countActiveUser();
+
+    @Query(value = "SELECT COUNT(*) AS TotalExperts FROM User WHERE Role = 'ROLE_Expert' and Status = 1;",nativeQuery = true)
+    int countExpert();
 }

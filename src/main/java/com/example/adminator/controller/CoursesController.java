@@ -1,6 +1,6 @@
 package com.example.adminator.controller;
 
-import com.example.adminator.Join.CourseUserCategoryJoin;
+import com.example.adminator.join.CourseUserCategoryJoin;
 import com.example.adminator.model.User;
 import com.example.adminator.service.CouService;
 import com.example.adminator.service.UserService;

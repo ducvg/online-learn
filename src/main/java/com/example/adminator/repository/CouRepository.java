@@ -43,5 +43,23 @@ public interface CouRepository extends JpaRepository<Course,Integer> {
             "  c.CourseID ASC;",nativeQuery = true )
     List<Object[]> getListCou();
 
+    @Query(value = "SELECT COUNT(*) AS TotalCourses FROM Course;", nativeQuery = true)
+    int countCourse();
+
+    @Query(value = "SELECT Thumbnail, Title, COUNT(Registration.CourseID) AS RegisteredCount\n" +
+            "FROM Registration\n" +
+            "right JOIN Course ON Registration.CourseID = Course.CourseID\n" +
+            "GROUP BY Course.CourseID\n" +
+            "ORDER BY RegisteredCount DESC\n" +
+            "limit 4",nativeQuery = true)
+    List<Object[]> topRegisteredCourse();
+
+    @Query(value = "SELECT Thumbnail, Title, COUNT(Registration.CourseID) AS RegisteredCount\n" +
+            "FROM Registration\n" +
+            "right JOIN Course ON Registration.CourseID = Course.CourseID\n" +
+            "GROUP BY Course.CourseID \n" +
+            "ORDER BY RegisteredCount ASC \n" +
+            "limit 4",nativeQuery = true)
+    List<Object[]> leastRegisteredCourse();
 
 }

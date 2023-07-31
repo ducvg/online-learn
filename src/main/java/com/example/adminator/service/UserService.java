@@ -14,13 +14,12 @@ public interface UserService {
 
     public List<User> getListUser();
 
-    public List<String> listRole();
-
     public User add(User user);
 
     public User update(User user);
     public User changePassword(User user);
     public void delete(User user);
-
-
+    public int countUser();
+    public int countActiveUser();
+    public int countExpert();
 }

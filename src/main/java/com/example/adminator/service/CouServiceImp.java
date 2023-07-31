@@ -1,6 +1,7 @@
 package com.example.adminator.service;
 
-import com.example.adminator.Join.CourseUserCategoryJoin;
+import com.example.adminator.join.CourseRegistrationJoin;
+import com.example.adminator.join.CourseUserCategoryJoin;
 import com.example.adminator.model.Course;
 import com.example.adminator.model.CourseExpert;
 import com.example.adminator.repository.CouRepository;
@@ -56,4 +57,13 @@ public class CouServiceImp implements CouService{
         }
         couRepository.delete(course);
     }
+
+    @Override
+    public int countCourse(){return couRepository.countCourse();}
+
+    @Override
+    public List<Object[]> topRegisterdCourse(){return couRepository.topRegisteredCourse();};
+
+    @Override
+    public List<Object[]> leastRegisterdCourse(){return couRepository.leastRegisteredCourse();};
 }
