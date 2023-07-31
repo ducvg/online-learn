@@ -44,4 +44,5 @@ public interface CouRepository extends JpaRepository<Course,Integer> {
     List<Object[]> getListCou();
 
 
+
 }

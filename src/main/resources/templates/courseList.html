@@ -72,23 +72,23 @@ display: inline-block;
             </thead>
             <tbody id="servers_table" runat="server" ClientIDMode="static" data-delete="">
             <tr th:each="c : ${courses}">
-              <td>[[${c.CourseID}]]</td>
-              <td>[[${c.Title}]]</td>
-              <td>[[${c.Thumbnail}]]</td>
-              <td>[[${c.Description}]]</td>
-              <td>[[${c.toString()}]]</td>
-              <td>[[${c.Category}]]</td>
-              <td class="crud">
-                <a th:href="@{'update/'+${c.CourseID}}"><i class="fa fa-pencil"></i></a>
-                <a th:onclick="|showDeleteConfirmation('${c.CourseID}')|"><i class="fa fa-trash"></i></a>
-              </td>
+                <td>[[${c.CourseID}]]</td>
+                <td>[[${c.Title}]]</td>
+                <td>[[${c.Thumbnail}]]</td>
+                <td>[[${c.Description}]]</td>
+                <td>[[${c.toString()}]]</td>
+                <td>[[${c.Category}]]</td>
+                <td class="crud">
+                  <a th:href="@{'update/'+${c.CourseID}}"><i class="fa fa-pencil"></i></a>
+                  <a th:onclick="|showDeleteConfirmation('${c.CourseID}')|"><i class="fa fa-trash"></i></a>
+                </td>
             </tr>
             </tbody>
           </table>
         </div>
       </div>
       <div class="modal-footer">
-        <a href="./admindashboard.html">
+        <a href="/admin">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </a>
       </div>

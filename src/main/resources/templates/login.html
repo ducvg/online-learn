@@ -1,0 +1,113 @@
+<!doctype html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <!--Google Font-->
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/style/login.css">
+
+    <title>F-Study Login</title>
+
+</head>
+
+<body>
+<nav id="web-navbar" class="nav-course navbar navbar-expand-lg navbar-dark fixed-top py-2">
+    <a class="navbar-brand" href="/"><img src="style/img/logo.png" alt=""></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/course">Course</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/About">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/contact">Contact</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/signin">Login</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<main class="login-pg">
+    <div class="gambar">
+        <div class="gambar-e">
+            <img src="/style/img/logop.png" alt="Langit" class="pic log">
+            <p>Learn anything, anywhere, at your own pace. With our vast library of courses, you can unlock your
+                potential and achieve your goals. Whether you're looking to learn a new skill, advance your career, or
+                simply expand your knowledge, we have something for everyone. So what are you waiting for? Start
+                learning today!</p>
+        </div>
+    </div>
+
+    <div class="kontainer">
+        <div class="log-form">
+            <h1>Login</h1>
+            <h3>[[${success}]]</h3>
+            <div class="form">
+                <form th:action="@{/signin}" method="post">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input name="username" type="email" class="form-control" id="exampleInputEmail1"
+                               aria-describedby="emailHelp">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                            else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword5">Password</label>
+                        <input name="password" type="password" id="inputPassword5" class="form-control"
+                               aria-describedby="passwordHelpBlock">
+                        <small id="passwordHelpBlock" class="form-text text-muted">
+                            Your password must be 8-20 characters long, contain letters and numbers, and must not
+                            contain spaces, special characters, or emoji.
+                        </small>
+                    </div>
+                    <div class="form-group form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+                    </div>
+                    <input type="hidden"
+                           name="${_csrf.parameterName}"
+                           value="${_csrf.token}"/>
+                    <button type="submit" name="submit" class="btn btn-primary">Login</button>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="register">New around here? Sign up</a>
+                    <a class="dropdown-item" href="forgot">Forgot password?</a>
+                    <div th:if="${param.error}">
+                        <p style="color: red;">Invalid email or password. Please try again.</p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer id="footer">
+    <p>F-Learning &copy; 2023. All rights reserved.</p>
+</footer>
+
+</body>
+
+</html>
+

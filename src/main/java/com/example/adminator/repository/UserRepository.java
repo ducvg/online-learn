@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Integer > {
-    @Query(value ="select * from user where role = 'Expert'",nativeQuery = true )
+    @Query(value ="select * from user where role = 'ROLE_Expert'",nativeQuery = true )
     List<User> getAllExpert();
 
     @Query(value = "SELECT u.UserID, u.Name, u.Email, u.Password, u.Role,u.Status\n" +
@@ -22,6 +22,9 @@ public interface UserRepository extends JpaRepository<User,Integer > {
 
     @Query(value = "SELECT distinct u.Role From ols.user u",nativeQuery = true)
     List<String> roleOfUser();
+
+    @Query(value = "Select * from user where email = :email ", nativeQuery = true)
+    User findEmail(@Param("email") String email);
 
     @Transactional
     @Modifying

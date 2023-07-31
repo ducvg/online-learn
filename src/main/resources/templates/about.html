@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -26,19 +26,24 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/courses">Course</a>
+                    <a class="nav-link" href="/course">Course</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="/About">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/Contact">Contact</a>
+                    <a class="nav-link" href="/contact">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
+                    <a class="nav-link" th:if="${user}" href="/user">[[${user.name}]]</a>
+                    <a class="nav-link" th:unless="${user}" href="/signin">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:if="${user != null && user.role == 'ROLE_Admin'}" href="/admin">Admin Dashboard</a>
+                    <a class="nav-link" th:if="${user != null && user.role == 'ROLE_Expert'}" href="/expert">Expert Dashboard</a>
                 </li>
             </ul>
         </div>
@@ -56,7 +61,7 @@
         <div class="first-sec">
             <h1>Want to join F-Learning ?</h1>
             <p>Learn anything, anywhere, at your own pace. With our vast library of courses, you can unlock your potential and achieve your goals. Whether you're looking to learn a new skill, advance your career, or simply expand your knowledge, we have something for everyone. So what are you waiting for? Start learning today!
-                <a href="expertlogin.html"><div style="text-align: center; font-weight: bold; font-size: 20px;" >Become a Tutor</div> </a></p>
+                <a href="register"><div style="text-align: center; font-weight: bold; font-size: 20px;" >Become a Tutor</div> </a></p>
         </div>
 
         <div class="second-sec">
@@ -75,7 +80,7 @@
             <h1>How to purchase lessons from F-Learning?</h1>
             <ol>
                 <li>Choose the lesson you want to pay.</li>
-                <li>Deposit to this account number: 4024-8575-6051-4421 (Jasmine Hills)</li>
+                <li>Deposit to this account number: 0932322003 (Administrator)</li>
                 <li>Submit proof of payment below<br>
                     <a target="_blank" href="https://wa.wizard.id/ac1e1e">Payment confirmation</a>
                 </li>

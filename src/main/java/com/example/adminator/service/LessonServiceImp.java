@@ -10,4 +10,9 @@ import java.util.List;
 public class LessonServiceImp implements LessonService{
     @Autowired
     private LessonRepository lessonRepository;
+
+    @Override
+    public List<Lesson> getLessonByCourseID(Integer id) {
+        return lessonRepository.getLessonByCourseId(id);
+    }
 }

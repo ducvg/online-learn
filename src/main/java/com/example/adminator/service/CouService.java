@@ -1,5 +1,6 @@
 package com.example.adminator.service;
 
+import com.example.adminator.Join.CourseUserCategoryJoin;
 import com.example.adminator.model.Course;
 import org.springframework.stereotype.Service;
 

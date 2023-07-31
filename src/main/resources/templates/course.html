@@ -44,20 +44,17 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home</a>
+      </li>
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">Home</a>
+        <a class="nav-link" href="/course">Course</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="course.html">Course</a>
+        <a class="nav-link" href="/About">About</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="about.html">About</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="contact.html">Contact</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="login.html">Login</a>
+        <a class="nav-link" href="/contact">Contact</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="user.html">User</a>
@@ -122,9 +119,10 @@
             </div>
           </div>
           <div class="modal-footer">
-            <a href="./Course/Ekonomi/Akuntansi/Materi.html">
-              <button type="button" class="btn btn-secondary">Register</button>
-            </a>
+            <form th:action="@{'course/material'}" method="post">
+              <input type="hidden" th:name="CourseID" th:value="${c.CourseID}" />
+              <button type="submit" class="btn btn-secondary">Register</button>
+            </form>
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
           </div>
         </div>

@@ -6,8 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.awt.*;
-import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "user")
@@ -15,7 +14,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User implements Serializable {
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +36,18 @@ public class User implements Serializable {
     @Column(name = "Status")
     private boolean status;
 
+    @Column(name = "Phone")
+    private String phone;
+
+    @Column(name = "DOB")
+    private Date dob;
+
+    @Column(name = "Gender")
+    private String gender;
+
+    @Column(name = "Nationality")
+    private String nationality;
+
     public User(String name, String email, String password, String role, boolean status) {
         this.name = name;
         this.email = email;
@@ -44,4 +55,5 @@ public class User implements Serializable {
         this.role = role;
         this.status = status;
     }
+
 }
