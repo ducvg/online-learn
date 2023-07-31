@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -50,8 +51,24 @@ public class CoursesController {
     @PostMapping("/material")
     public String getLessonByCourseID(Model model, @RequestParam("CourseID") Integer CourseID){
         List<Lesson> lessons = lessonService.getLessonByCourseID(CourseID);
+        List<Lesson> randomLessons = getRandomLessons(lessons, 3);
         model.addAttribute("lessons",lessons);
+        model.addAttribute("random",randomLessons);
         return "materi";
+    }
+
+    private List<Lesson> getRandomLessons(List<Lesson> lessons, int count) {
+        // Nếu số lượng phần tử cần random lớn hơn hoặc bằng tổng số phần tử trong danh sách,
+        // thì chỉ cần trả về danh sách ban đầu
+        if (count >= lessons.size()) {
+            return lessons;
+        }
+
+        // Xáo trộn danh sách lessons
+        Collections.shuffle(lessons);
+
+        // Trả về 3 phần tử đầu tiên trong danh sách đã xáo trộn
+        return lessons.subList(0, count);
     }
 
 }

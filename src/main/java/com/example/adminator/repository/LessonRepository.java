@@ -9,7 +9,10 @@ import java.util.List;
 
 @Repository
 public interface LessonRepository extends JpaRepository<Lesson,Integer> {
-    @Query(value = "select l.LessonID, l.Title, l.Content from ols.lesson l where l.CourseID = :CourseID \n" +
+    @Query(value = "select distinct c.CourseID, l.LessonID, l.Title, l.Content,l.Video,l.Resource\n" +
+            "from ols.lesson l \n" +
+            "inner join ols.course c on l.CourseID = c.CourseID\n" +
+            "where c.CourseID = :id\n" +
             "order by l.LessonID asc;",nativeQuery = true)
-    List<Lesson> getLessonByCourseId(Integer CourseID);
+    List<Lesson> getLessonByCourseId(Integer id);
 }
