@@ -1,53 +1,104 @@
-<!DOCTYPE html>
-<html lang="en" >
-<head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"><head>
   <meta charset="UTF-8">
-  <title>Registration</title>
-  <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'><link rel="stylesheet" href="style/viewregistration.css">
-
+  <title>View Registration</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  .modal{
+    overflow: auto;
+  }
+    .crud {
+  width:100px;
+  vertical-align: middle !important;
+}
+.crud a {
+  cursor: pointer;
+  display: inline-block;
+  margin: 0 5px;
+  min-width: 24px;
+  font-size:1.5em;
+}
+.add-new {
+  float:right;
+  margin-bottom: 5px;
+}
+#servers_modal table.table td .add {
+display: inline-block;
+}
+#servers_modal table.table .form-control.error {
+  border-color: #f50000;
+}
+.modal-lg{width: 1234px;}
+.table-wrapper {
+    max-height: 90vh; /* Adjust this value as needed */
+    height: auto;
+    overflow-y: auto;
+  }
+  </style>
 </head>
 <body>
-  <div>Name: John</div>
-  <div>Payment method: Card</div>
 <!-- partial:index.partial.html -->
-<table>
-  <caption>Your Registration</caption>
-  <thead>
-    <tr>
-      <th scope="col">Registered Course</th>
-      <th scope="col">Due Date</th>
-      <th scope="col">Amount</th>
-      <th scope="col">Payment Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td data-label="Account">The Joy Of Learning</td>
-      <td data-label="Due Date">04/01/2023</td>
-      <td data-label="Amount">250.000 VNĐ</td>
-      <td data-label="Period">Accepted</td>
-    </tr>
-    <tr>
-      <td scope="row" data-label="Account">The Art Of Negotiation</td>
-      <td data-label="Due Date">03/01/2023</td>
-      <td data-label="Amount">250.000 VNĐ</td>
-      <td data-label="Period">In Processing</td>
-    </tr>
-    <tr>
-      <td scope="row" data-label="Account">Corporate AMEX</td>
-      <td data-label="Due Date">03/01/2023</td>
-      <td data-label="Amount">250.000 VNĐ</td>
-      <td data-label="Period">Error</td>
-    </tr>
-    <tr>
-      <td scope="row" data-label="Acount">The Science Of Happiness</td>
-      <td data-label="Due Date">02/01/2023</td>
-      <td data-label="Amount">250.000 VNĐ</td>
-      <td data-label="Period">Accepted</td>
-    </tr>
-  </tbody>
-</table>
+<div class="modal" id="servers_modal" style="display:block;">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h4 class="modal-title" style="
+    text-align-last: center;
+">View Registrations</h4>
+      </div>
+      <div class="modal-body">
+        <div class="table-wrapper">
+          <div class="table-title">
+
+          </div>
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th>Course Title</th>
+              <th>Register Date</th>
+              <th>Expire Date</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+            </thead>
+            <tbody id="servers_table" runat="server" clientidmode="static" data-delete="">
+            <tr th:each="r : ${registrations}">
+              <td><a th:href="@{'/course/'+${r.courseID}">[[${r.title}]]</a></td>
+              <td>[[${r.registrationDate}]]</td>
+              <td>[[${r.endDate}]]</td>
+              <td>[[${r.status}]]</td>
+              <td class="crud">
+                <a th:href="@{'registration/update/'+${c.CourseID}}"><i class="fa fa-check"></i></a>
+                <a th:onclick="|showDeleteConfirmation('${c.CourseID}')|"><i class="fa fa-times"></i></a>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <a href="/admin">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
 <!-- partial -->
-  
+<script>
+        function showDeleteConfirmation(id) {
+            var result = window.confirm("Are you sure you want to delete?");
+            if (result) {
+                 window.location.href ="registration/delete/"+id;
+                console.log("Item deleted.");
+            }
+        }
+    </script>
 </body>
 </html>
